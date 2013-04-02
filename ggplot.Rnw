@@ -1,0 +1,79 @@
+\documentclass{beamer}
+\usepackage{listings}
+\usepackage{inconsolata}
+
+<<setup, include=FALSE>>=
+# smaller font size for chunks
+opts_chunk$set(size = 'footnotesize')
+@
+
+<<echo=FALSE>>=
+options(width=60)
+@
+
+\begin{document}
+\title{Introduction to ggplot2}
+\author{Karthik Ram}
+\maketitle
+
+% very important to use option [fragile] for frames containing code output!
+
+\begin{frame}[fragile]
+This is a demo of \textbf{ggplot2}:
+<<boring-random, fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold', tidy=FALSE>>=
+ggplot(mtcars, aes(cyl, mpg, color = vs)) +
+geom_point(aes(size = gear*1.4))
+x <- 1:100
+@
+\end{frame}
+
+\begin{frame}[fragile]
+Now we can vary the gear size.
+<<boring-randomb , fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold',  tidy=FALSE>>=
+ggplot(mtcars, aes(cyl, mpg, color = vs)) +
+geom_point(aes(size = gear * 1.4))
+@
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+The first element of \texttt{x} is \Sexpr{x[1]}. Boring boxplots
+and histograms recorded by the PDF device:
+
+<<temp>>=
+x <- rnorm(100)
+y <- 1
+@
+\end{frame}
+
+\begin{frame}[fragile]
+The first element of \texttt{x} is \Sexpr{x[1]}. Boring boxplots
+and histograms recorded by the PDF device:
+
+<<tempee, eval = FALSE>>=
+ggplot(data, aes(x, y)) + geom_point(size = 4)
+@
+
+<<tempeb, eval = FALSE>>=
+ggplot(data, aes(x, y)) + geom_point(size = 4)
+@
+
+<<temped, eval = FALSE>>=
+ggplot(data, aes(x, y)) + geom_point(size = 4)
+@
+\end{frame}
+
+\begin{frame}[fragile]
+The first element of \texttt{x} is \Sexpr{x[1]}. Boring boxplots
+and histograms recorded by the PDF device:
+
+<<tempec, echo = FALSE, out.width='.75\\linewidth'>>=
+ggplot(mtcars, aes(cyl, mpg)) + geom_point(size = 4)
+@
+
+\end{frame}
+
+
+
+\end{document}
