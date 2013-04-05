@@ -1,23 +1,61 @@
+% Introduction to ggplot2
+% Author: Karthik Ram, karthik.ram@gmail.com
+% Licence, CC-BY
 \documentclass{beamer}
 \usepackage{listings}
 \usepackage{inconsolata}
-
+% --------------------------------------------------------------
 <<setup, include=FALSE>>=
 # smaller font size for chunks
 opts_chunk$set(size = 'footnotesize')
 @
+
+% --------------------------------------------------------------
 
 <<echo=FALSE>>=
 options(width=60)
 @
 
 \begin{document}
-\title{Introduction to ggplot2}
+\title{Data Visualization with R \& ggplot2}
 \author{Karthik Ram}
 \maketitle
 
-% very important to use option [fragile] for frames containing code output!
+% --------------------------------------------------------------
+% Template
+\begin{frame}[fragile]
+\frametitle{Base graphics \texttt{ggplot2}}
+Based on Grammar of Graphics.\\
+Map aesthetics on to your data.\\
+\end{frame}
 
+% --------------------------------------------------------------
+% Template
+\begin{frame}[fragile]
+\frametitle{Some terminology}
+\texttt{geoms} - short for geometric objects\\
+\texttt{aes} - short for aesthetics\\
+\end{frame}
+
+% --------------------------------------------------------------
+% Template
+\begin{frame}[fragile]
+\frametitle{Progressively build your plots}
+\texttt{geoms} - short for geometric objects\\
+examples: \texttt{geom\_point}, geom\_bar, geom\_area, geom\_density.
+\texttt{aes} - short for aesthetics\\
+\end{frame}
+
+% --------------------------------------------------------------
+% Template
+\begin{frame}[fragile]
+\frametitle{Why ggplot2?}
+\texttt{geoms} - Very intuitive\\
+\texttt{aes} - progressively build more complex plots\\
+\end{frame}
+
+
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 This is a demo of \textbf{ggplot2}:
 <<boring-random, fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold', tidy=FALSE>>=
@@ -26,7 +64,7 @@ geom_point(aes(size = gear*1.4))
 x <- 1:100
 @
 \end{frame}
-
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 Now we can vary the gear size.
 <<boring-randomb , fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold',  tidy=FALSE>>=
@@ -35,20 +73,20 @@ geom_point(aes(size = gear * 1.4))
 @
 \end{frame}
 
+% --------------------------------------------------------------
 
+% \begin{frame}[fragile]
+% The first element of \texttt{x} is \Sexpr{x[1]}. Boring boxplots
+% and histograms recorded by the PDF device:
 
+% <<temp>>=
+% x <- rnorm(100)
+% y <- 1
+% @
+% \end{frame}
+% --------------------------------------------------------------
 \begin{frame}[fragile]
-The first element of \texttt{x} is \Sexpr{x[1]}. Boring boxplots
-and histograms recorded by the PDF device:
-
-<<temp>>=
-x <- rnorm(100)
-y <- 1
-@
-\end{frame}
-
-\begin{frame}[fragile]
-The first element of \texttt{x} is \Sexpr{x[1]}. Boring boxplots
+The first element of \text{x} is \Sexpr{x[1]}. Boring boxplots
 and histograms recorded by the PDF device:
 
 <<tempee, eval = FALSE>>=
@@ -64,16 +102,79 @@ ggplot(data, aes(x, y)) + geom_point(size = 4)
 @
 \end{frame}
 
+% --------------------------------------------------------------
+
 \begin{frame}[fragile]
-The first element of \texttt{x} is \Sexpr{x[1]}. Boring boxplots
-and histograms recorded by the PDF device:
+% The first element of \texttt{x} is \Sexpr{x[1]}. Boring boxplots
+% and histograms recorded by the PDF device:
 
 <<tempec, echo = FALSE, out.width='.75\\linewidth'>>=
 ggplot(mtcars, aes(cyl, mpg)) + geom_point(size = 4)
 @
+\end{frame}
+% --------------------------------------------------------------
+% How to save your plots
+\begin{frame}[fragile]
+\frametitle{Making publication quality figures with \texttt{ggplot2}}
+If the plot is on your screen
+<<pub0, eval = FALSE, out.width='.75\\linewidth'>>=
+ggsave('~/path/to/figure/filename.png')
+@
+If your plot is assigned to an object
+<<pub1, eval = FALSE, out.width='.75\\linewidth'>>=
+ggsave(plot1, '~/path/to/figure/filename.png')
+@
+
+Specify a size
+<<pub2, eval = FALSE, out.width='.75\\linewidth'>>=
+ggsave("~/path/to/figure/filename.png", width = 6, height =4)
+@
+or any format (pdf, png, eps, jpg)
+<<pub3, eval = FALSE, out.width=".75\\linewidth">>=
+ggsave("~/path/to/figure/filename.eps")
+ggsave("~/path/to/figure/filename.jpg")
+ggsave("~/path/to/figure/filename.pdf")
+@
 
 \end{frame}
 
+% % --------------------------------------------------------------
+% % Template
+% \begin{frame}[fragile]
+% \frametitle{Title \texttt{ggplot2}}
+% If the plot is on your screen
+% <<chunk_title0, eval = FALSE, out.width='.75\\linewidth'>>=
+% Some code
+% @
+% \end{frame}
+
+% --------------------------------------------------------------
+% Template
+\begin{frame}[fragile]
+\frametitle{Line plots}
+If the plot is on your screen
+<<chunk_title3, eval = FALSE, out.width='.75\\linewidth'>>=
+ggsave(file = '/path/to/plot/file_name.extension')
+@
+\end{frame}
+% --------------------------------------------------------------
+% Template
+\begin{frame}[fragile]
+\frametitle{Useful \texttt{ggplot2} reference books}
+\includegraphics[scale=0.25]{images/chang_book.png}
+\end{frame}
 
 
+% --------------------------------------------------------------
+% Template
+% \begin{frame}[fragile]
+% \frametitle{Title \texttt{ggplot2}}
+% If the plot is on your screen
+% <<chunk_title5, eval = FALSE, out.width='.75\\linewidth'>>=
+% Some code
+% @
+% \end{frame}
+
+% --------------------------------------------------------------
+% end, hope it was useful.
 \end{document}
