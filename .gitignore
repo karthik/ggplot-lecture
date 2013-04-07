@@ -8,3 +8,5 @@
 .sh
 .DS_Store
 figure/
+local.R
+cache/*
