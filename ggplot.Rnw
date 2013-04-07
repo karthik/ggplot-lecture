@@ -6,8 +6,10 @@
 \usepackage{inconsolata}
 \setbeamertemplate{frametitle}[default][center]
 \usepackage{url}
+\usetheme{Amsterdam}
 % --------------------------------------------------------------
 <<setup, include=FALSE>>=
+opts_chunk$set(cache=TRUE, message=FALSE)
 # smaller font size for chunks
 opts_chunk$set(size = 'footnotesize')
 @
@@ -24,26 +26,32 @@ options(width=60)
 \maketitle
 
 % --------------------------------------------------------------
-% Template
 \begin{frame}[fragile]
-\frametitle{GitHub Repository}
-http://github.com/karthikram/ggplot-lecuture
+\frametitle{Download this PDF}\footnote{git clone \url{git@github.com:karthikram/ggplot-lecture.git}}
+\begingroup
+    \fontsize{20pt}{12pt}\selectfont
+\href{http://github.com/karthikram/ggplot-lecture}{github.com/karthikram/ggplot-lecture}
+\endgroup
 \end{frame}
 % --------------------------------------------------------------
 % Template
 \begin{frame}[fragile]
 \frametitle{Base graphics}
-Ugly, laborious, and verbose\\
-There are better ways to describe statistical visualizations.\\
+\begin{itemize}
+\item Ugly, laborious, and verbose\\
+\item There are better ways to describe statistical visualizations.\\
+\end{itemize}
 \end{frame}
 
 % --------------------------------------------------------------
 % Template
 \begin{frame}[fragile]
-\frametitle{Why? \texttt{ggplot2}}
-Follows a grammar, just like any language. It defines basic components that make up a sentence. In this case, the grammar defines components in a plot.\\
-
-Grammar of graphics originally coined by Lee Wilkinson\\
+\frametitle{Why \texttt{ggplot2}?}
+\begin{itemize}
+\item Follows a grammar, just like any language.
+\item It defines basic components that make up a sentence. In this case, the grammar defines components in a plot.
+\item Grammar of graphics originally coined by Lee Wilkinson
+\end{itemize}
 \end{frame}
 
 
@@ -51,124 +59,384 @@ Grammar of graphics originally coined by Lee Wilkinson\\
 % Template
 \begin{frame}[fragile]
 \frametitle{Why \texttt{ggplot2}?}
-Supports a continuum of expertise. Get started right away but with practice you can effortless build complex, publication quality figures.\\
-
-Reuse old plots.\\
+\begin{itemize}
+\item  Supports a continuum of expertise.
+\item Get started right away but with practice you can effortless build complex, publication quality figures.
+\end{itemize}
 \end{frame}
+
+% --------------------------------------------------------------
+\section{Basics}
+\frame{\sectionpage}
+
+% Template
+\begin{frame}[fragile]
+\frametitle{Some terminology}
+\begin{itemize}
+\item \texttt{ggplot} - The main function where you specify the dataset and variables to plot\\
+\item \textbf{geoms} - geometric objects
+    \begin{itemize}
+    \item geom\_point(), geom\_bar(), geom\_density(), geom\_line(), geom\_area()
+    \end{itemize}
+\item \textbf{aes} -  aesthetics
+        \begin{itemize}
+    \item shape, transparency, color, fill.
+    \end{itemize}
+\item \textbf{scales}  Define how your data will be plotted
+        \begin{itemize}
+    \item \emph{continuous}, \emph{discrete}, \emph{log}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+
+\section{Assembling your first ggplot}
+\frame{\sectionpage}
+
 % --------------------------------------------------------------
 % Template
-\begin{frame}
-\begin{itemize}
-\item The \textbf{knitr}\textbf{\emph{ }}package allows you to embed R code
-and figures in \LaTeX{} documents
-
-\begin{itemize}
-\item It has functionality similar to Sweave but looks nicer and gives you
-more control
-\end{itemize}
-\item If you already have Sweave working in getting
-to work is trivial
-
-\begin{enumerate}
-\item Install the \textbf{knitr} package in \emph{R}
-\item Read \url{http://yihui.name/knitr/demo/lyx/}
-\end{enumerate}
-\item If you use Sweave or   with Beamer in   you probably
-use the \emph{Beamer Fragile} module%
-\footnote{\url{http://www.lyx.org/trac/ticket/7273}%
-} too. Let's see if \textbf{knitr} works with Beamer in this small
-demo.
-\end{itemize}
+\begin{frame}[fragile]
+\frametitle{The iris dataset}
+<<some_data, tidy=FALSE, echo=TRUE>>=
+head(iris)
+@
 \end{frame}
 
 % --------------------------------------------------------------
 % Template
 \begin{frame}[fragile]
-\frametitle{Some terminology}
-\begin{itemize}
-\item \texttt{geoms} - short for geometric objects\\
-\item \texttt{aes} - short for aesthetics\\
-\item \texttt{scales}  Define how your data will be plotted\\
-\end{itemize}
+\frametitle{Let's try an example}
+<<first_plot , fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold',  tidy=FALSE>>=
+ggplot(data = iris, aes(x= Sepal.Length, y= Sepal.Width)) +
+geom_point()
+@
 \end{frame}
 
 % --------------------------------------------------------------
 % Template
 \begin{frame}[fragile]
 \frametitle{Basic structure}
-Specify the data and variables inside the \texttt{ggplot} function. Anything else that goes in here becomes a global setting.\\
-
-Then add layers of geometric objects, statistical models, and panels.
-
+<<first_plotb , eval=FALSE, tidy=FALSE>>=
+ggplot(data = iris, aes(x= Sepal.Length, y= Sepal.Width))
+ + geom_point()
+myplot <- ggplot(data = iris, aes(x= Sepal.Length, y= Sepal.Width))
+myplot + geom_point()
+ @
+\begin{itemize}
+\item Specify the data and variables inside the \texttt{ggplot} function. Anything else that goes in here \item becomes a global setting.
+\item Then add layers of geometric objects, statistical models, and panels.
+\end{itemize}
+\end{frame}
+% --------------------------------------------------------------
+% Template
+\begin{frame}[fragile]
+\frametitle{Increase the size of points}
+<<first_plot_size , fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold',  tidy=TRUE>>=
+ggplot(data = iris, aes(x= Sepal.Length, y= Sepal.Width)) +
+geom_point(size = 3)
+@
 \end{frame}
 
 % --------------------------------------------------------------
 % Template
 \begin{frame}[fragile]
-\frametitle{Progressively build your plots}
-\texttt{geoms} - short for geometric objects\\
-examples: \texttt{geom\_point}, geom\_bar, geom\_area, geom\_density.
-\texttt{aes} - short for aesthetics\\
+\frametitle{Add some color}
+<<first_plot_color , fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold',  tidy=FALSE>>=
+ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) +
+geom_point(size = 3)
+@
+\end{frame}
+
+% --------------------------------------------------------------
+% Template
+\begin{frame}[fragile]
+\frametitle{Also differentiate points by shape}
+<<first_plot_shape , fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold',  tidy=FALSE>>=
+ggplot(data = iris, aes(x= Sepal.Length, y= Sepal.Width, color = Species)) +
+geom_point(aes(shape = Species), size = 3)
+@
+\end{frame}
+
+\section{Exercise 1}
+\frame{\sectionpage}
+
+% --------------------------------------------------------------
+\begin{frame}[fragile]
+Make the following plot.\\
+Use the airquality dataset and generate a scatter plot of the year against xxx.\\
+Then increase the size of the points.
+
+\end{frame}
+
+% --------------------------------------------------------------
+\section{Histograms}
+\frame{\sectionpage}
+
+% --------------------------------------------------------------
+\begin{frame}[fragile]
+See \texttt{geom\_histogram} for list of options
+<<histogr , fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold',  tidy=FALSE>>=
+h <- ggplot(faithful, aes(x=waiting))
+h + geom_histogram(binwidth=8, fill="white", colour="black", origin=31)
+@
 \end{frame}
 
 % --------------------------------------------------------------
 \begin{frame}[fragile]
-This is a demo of \textbf{ggplot2}:
-<<boring-random, fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold', tidy=FALSE>>=
-ggplot(mtcars, aes(cyl, mpg, color = vs)) +
-geom_point(aes(size = gear * 1.4))
-x <- 1:100
+<<histogrm , fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold',  tidy=FALSE>>=
+h <- ggplot(faithful, aes(x=waiting))
+h + geom_histogram(binwidth=2, fill="white", colour="black")
 @
 \end{frame}
+
 % --------------------------------------------------------------
+\begin{frame}[fragile]
+<<histogra , fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold',  tidy=FALSE>>=
+h <- ggplot(faithful, aes(x=waiting))
+h + geom_histogram(binwidth=8, fill="steelblue", colour="black", origin=31)
+@
+\end{frame}
+
+% --------------------------------------------------------------
+\section{Line plots}
+\frame{\sectionpage}
+
 \begin{frame}[fragile]
 Now we can vary the gear size.
-<<boring-randomb , fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold',  tidy=FALSE>>=
-ggplot(mtcars, aes(cyl, mpg, color = vs)) +
-geom_point(aes(size = gear * 1.4))
+<<linea , fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold',  tidy=FALSE>>=
+climate <- read.csv('~/Github/ggplot2-lecture/climate.csv', header = T)
+ggplot(climate, aes(Year, Anomaly10y)) +
+geom_line()
 @
 \end{frame}
-
-% --------------------------------------------------------------
-
-% \begin{frame}[fragile]
-% The first element of \texttt{x} is \Sexpr{x[1]}. Boring boxplots
-% and histograms recorded by the PDF device:
-
-% <<temp>>=
-% x <- rnorm(100)
-% y <- 1
-% @
-% \end{frame}
-% --------------------------------------------------------------
-\begin{frame}[fragile]
-The first element of \text{x} is \Sexpr{x[1]}. Boring boxplots
-and histograms recorded by the PDF device:
-
-<<tempee, eval = FALSE>>=
-ggplot(data, aes(x, y)) + geom_point(size = 4)
-@
-
-<<tempeb, eval = FALSE>>=
-ggplot(data, aes(x, y)) + geom_point(size = 4)
-@
-
-<<temped, eval = FALSE>>=
-ggplot(data, aes(x, y)) + geom_point(size = 4)
-@
-\end{frame}
-
-% --------------------------------------------------------------
 
 \begin{frame}[fragile]
-% The first element of \texttt{x} is \Sexpr{x[1]}. Boring boxplots
-% and histograms recorded by the PDF device:
-
-<<tempec, echo = FALSE, out.width='.75\\linewidth'>>=
-ggplot(mtcars, aes(cyl, mpg)) + geom_point(size = 4)
+We can also plot confidence regions
+<<lineb , fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold',  tidy=FALSE>>=
+climate <- read.csv('~/Github/ggplot2-lecture/climate.csv', header = T)
+ggplot(climate, aes(Year, Anomaly10y)) + geom_ribbon(aes(ymin=Anomaly10y-Unc10y, ymax=Anomaly10y+Unc10y), fill="blue", alpha=.1) +
+geom_line(color="steelblue")
 @
 \end{frame}
+
+
 % --------------------------------------------------------------
+\section{Bar plots}
+\frame{\sectionpage}
+
+\begin{frame}[fragile]
+<<barone , fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold',  tidy=FALSE>>=
+ggplot(iris, aes(Species, Sepal.Length)) +
+geom_bar(stat="identity", postiion = "dodge")
+@
+\end{frame}
+
+% --------------------------------------------------------------
+\section{plyr and reshape}
+\frame{\sectionpage}
+
+\begin{frame}[fragile]
+<<bartwo , fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold',  tidy=FALSE>>=
+df  <- melt(iris, measured.vars="Species")
+ggplot(df, aes(Species, value, fill = variable)) +
+geom_bar(stat="identity")
+@
+\end{frame}
+
+\begin{frame}[fragile]
+<<bartwodata , fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold',  tidy=FALSE>>=
+iris[1:2, ]
+df  <- melt(iris, measured.vars="Species")
+df[1:2, ]
+@
+\end{frame}
+
+
+\begin{frame}[fragile]
+<<barthree , fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold',  tidy=FALSE>>=
+ggplot(df, aes(Species, value, fill = variable)) +
+geom_bar(stat="identity", position="dodge")
+@
+\end{frame}
+
+% --------------------------------------------------------------
+\section{Exercise 2}
+\frame{\sectionpage}
+
+\begin{frame}[fragile]
+Take a dataset and make both a stacked bar chart and a dodged bar chart.
+\end{frame}
+
+% --------------------------------------------------------------
+\section{Density Plots}
+\frame{\sectionpage}
+
+\begin{frame}[fragile]
+<<densityone , eval=FALSE, fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold',  tidy=FALSE>>=
+ggplot(faithful, aes(waiting)) + geom_density()
+ggplot(faithful, aes(waiting)) +
+geom_density(fill = "blue", alpha = 0.1)
+@
+\end{frame}
+
+\begin{frame}[fragile]
+<<densitytwo , , fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold',  tidy=FALSE>>=
+ggplot(faithful, aes(waiting)) +
+geom_line(stat="density", fill="blue")
+@
+\end{frame}
+
+% --------------------------------------------------------------
+\section{Exercise 2}
+\frame{\sectionpage}
+
+% --------------------------------------------------------------
+\section{Exercise 3}
+\frame{\sectionpage}
+
+% --------------------------------------------------------------
+\section{Exercise 4}
+\frame{\sectionpage}
+
+% --------------------------------------------------------------
+\section{Mapping Variables to Colors}
+\frame{\sectionpage}
+
+
+\begin{frame}[fragile]
+\frametitle{Colors}
+<<color_list, eval = TRUE, fig.width=4, fig.height=3, out.width='.75\\linewidth'>>=
+library(RColorBrewer)
+display.brewer.all()
+@
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Colors}
+<<color_list2, eval = FALSE, fig.width=4, fig.height=6, out.width='.75\\linewidth'>>=
+aes(color = variable)
+aes(color = "black")
+# Or add it as a scale
+scale_fill_manual(values = c("color1", "color2"))
+@
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Refer to a color chart for beautful visualizations}
+\url{http://tools.medialab.sciences-po.fr/iwanthue/}
+\includegraphics[scale=0.25]{images/color_schemes.png}
+\end{frame}
+
+
+
+
+
+\section{Faceting}
+\frame{\sectionpage}
+
+\begin{frame}[fragile]
+\frametitle{Faceting along columns}
+<<facetgrid1, eval = TRUE, fig.width=4, fig.height=3, out.width='.75\\linewidth'>>=
+ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) + geom_point() +
+facet_grid(Species ~ .)
+@
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{and along rows}
+<<facet_grid2, eval = TRUE, fig.width=4, fig.height=3, out.width='.75\\linewidth'>>=
+ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) + geom_point() +
+facet_grid(. ~ Species)
+@
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Colors}
+<<facet_wrap, eval = TRUE, fig.width=4, fig.height=3, out.width='.75\\linewidth'>>=
+ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) + geom_point() +
+facet_wrap( ~ Species)
+@
+\end{frame}
+
+
+% --------------------------------------------------------------
+\section{Themes}
+\frame{\sectionpage}
+
+\begin{frame}[fragile]
+\frametitle{Adding themes}
+<<theme_list, eval = FALSE, fig.width=4, fig.height=6, out.width='.75\\linewidth'>>=
+theme()
+# see ?theme() for more options
+@
+
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Adding themes}
+<<facet_wrap_themes, eval = TRUE, fig.width=2, fig.height=3, out.width='.75\\linewidth'>>=
+ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) + geom_point(size= 2.5, shape = 16) +
+facet_wrap( ~ Species) +
+theme(legend.key=element_rect(fill=NA), legend.position="bottom", strip.background=element_rect(fill=NA), strip.text=element_text(size=25), axis.title.y=element_text(angle=0))
+@
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Adding themes}
+<<facet_wrap_options, eval = TRUE, fig.width=4, fig.height=6, out.width='.75\\linewidth'>>=
+ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) + geom_point(size=2.5, shape=16) + facet_wrap( ~ Species) + theme(legend.key=element_rect(fill=NA), legend.position="bottom", strip.background=element_rect(fill=NA), strip.text=element_text(size=25), axis.title.y=element_text(angle=0))
+@
+\end{frame}
+
+% --------------------------------------------------------------
+\section{Scales}
+\frame{\sectionpage}
+
+% Template
+\begin{frame}[fragile]
+\frametitle{title}
+If the plot is on your screen
+<<scale_1, eval = FALSE, out.width='.75\\linewidth'>>=
+dd <- ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) + geom_point(size=4, shape=16) +
+facet_grid(. ~Species)
+dd +
+scale_y_continuous(breaks=seq(2, 8,by = 1), labels=paste0(2:8, " cm"))
+@
+\end{frame}
+
+% Template
+\begin{frame}[fragile]
+\frametitle{title}
+If the plot is on your screen
+<<scale_2, eval = FALSE, out.width='.75\\linewidth'>>=
+# code
+@
+\end{frame}
+
+% Template
+\begin{frame}[fragile]
+\frametitle{title}
+If the plot is on your screen
+<<scale_3, eval = FALSE, out.width='.75\\linewidth'>>=
+# code
+@
+\end{frame}
+
+% Template
+\begin{frame}[fragile]
+\frametitle{title}
+If the plot is on your screen
+<<scale_4, eval = FALSE, out.width='.75\\linewidth'>>=
+# code
+@
+\end{frame}
+
+
+% --------------------------------------------------------------
+\section{Publication quality figures}
+\frame{\sectionpage}
+
 % How to save your plots
 \begin{frame}[fragile]
 \frametitle{Making publication quality figures with \texttt{ggplot2}}
@@ -230,34 +498,19 @@ p + facet_grid(. ~ drv)
 \end{frame}
 
 
+
 % --------------------------------------------------------------
 % Template
 \begin{frame}[fragile]
-\frametitle{Line plots}
+\frametitle{title}
 If the plot is on your screen
-<<chunk_title3, eval = FALSE, out.width='.75\\linewidth'>>=
-ggsave(file = '/path/to/plot/file_name.extension')
+<<chunk_XXXXX, eval = FALSE, out.width='.75\\linewidth'>>=
+# code
 @
 \end{frame}
-% --------------------------------------------------------------
-% Template
-\begin{frame}[fragile]
-\frametitle{Useful \texttt{ggplot2} reference books}
-\includegraphics[scale=0.25]{images/chang_book.png}
-\end{frame}
 
 
-% --------------------------------------------------------------
-% SCALES
-% --------------------------------------------------------------
-% Template
-\begin{frame}[fragile]
-\frametitle{Scales}
-\begingroup
-    \fontsize{8pt}{12pt}\selectfont
-continuous\_scale , discrete\_scale  , scale\_alpha  , scale\_alpha\_continuous  , scale\_alpha\_discrete , scale\_alpha\_identity, scale\_alpha\_manual, scale\_area  , scale\_color\_brewer, scale\_color\_continuous  , scale\_color\_discrete , scale\_color\_gradient, scale\_color\_gradient2, scale\_color\_gradientn, scale\_color\_grey , scale\_color\_hue , scale\_color\_identity , scale\_color\_manual  , scale\_colour\_brewer  , scale\_colour\_continuous , scale\_colour\_discrete, scale\_colour\_gradient, scale\_colour\_gradient2, scale\_colour\_gradientn  , scale\_colour\_grey, scale\_colour\_hue, scale\_colour\_identity, scale\_colour\_manual , scale\_fill\_brewer, scale\_fill\_continuous, scale\_fill\_discrete  , scale\_fill\_gradient , scale\_fill\_gradient2 , scale\_fill\_gradientn, scale\_fill\_grey  , scale\_fill\_hue  , scale\_fill\_identity  , scale\_fill\_manual, scale\_linetype, scale\_linetype\_continuous, scale\_linetype\_discrete  , scale\_linetype\_identity , scale\_linetype\_manual, scale\_shape , scale\_shape\_continuous, scale\_shape\_discrete, scale\_shape\_identity , scale\_shape\_manual  , scale\_size, scale\_size\_area , scale\_size\_continuous, scale\_size\_discrete , scale\_size\_identity  , scale\_size\_manual, scale\_x\_continuous, scale\_x\_date, scale\_x\_datetime , scale\_x\_discrete, scale\_x\_log10, scale\_x\_reverse , scale\_x\_sqrt , scale\_y\_continuous  , scale\_y\_date , scale\_y\_datetime, scale\_y\_discrete , scale\_y\_log10, scale\_y\_reverse  , scale\_y\_sqrt
-\endgroup
-\end{frame}
+
 
 % --------------------------------------------------------------
 % end, hope it was useful.
