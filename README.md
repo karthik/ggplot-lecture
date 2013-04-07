@@ -9,7 +9,7 @@ Here are my [slides](https://github.com/karthikram/ggplot-lecture/blob/master/gg
 
 To generate the pdf presentation
 
-```
+```r
 knitr('ggplot.Rnw')
 system("pdflatex ggplot.tex")
 ```

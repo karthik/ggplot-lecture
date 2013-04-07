@@ -1,3 +1,6 @@
+% Introduction to ggplot2
+% Author: Karthik Ram, karthik.ram@gmail.com
+% Licence, CC-BY
 \documentclass{beamer}\usepackage{graphicx, color}
 %% maxwidth is the original width if it is less than linewidth
 %% otherwise use linewidth (to make sure the graphics do not exceed the margin)
@@ -55,95 +58,709 @@
 \usepackage{alltt}
 \usepackage{listings}
 \usepackage{inconsolata}
+\setbeamertemplate{frametitle}[default][center]
+\usepackage{url}
+\setcounter{secnumdepth}{-1}
+\usetheme{Amsterdam}
+% --------------------------------------------------------------
 
 
 
+% --------------------------------------------------------------
 
 
 
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 
 \begin{document}
-\title{Introduction to ggplot2}
+\title{Data Visualization with R \& ggplot2}
 \author{Karthik Ram}
 \maketitle
-
-% very important to use option [fragile] for frames containing code output!
-
+% --------------------------------------------------------------
+% Template
 \begin{frame}[fragile]
-This is a demo of \textbf{ggplot2}:
+\frametitle{Some housekeeping}
+Install some packages
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{ggplot}(mtcars, \hlfunctioncall{aes}(cyl, mpg, color = vs)) +
-\hlfunctioncall{geom_point}(\hlfunctioncall{aes}(size = gear*1.4))
-x <- 1:100
-\end{alltt}
-\end{kframe}
-\includegraphics[width=.75\linewidth]{figure/boring-random} 
-
-\end{knitrout}
-
-\end{frame}
-
-\begin{frame}[fragile]
-Now we can vary the gear size.
-\begin{knitrout}\footnotesize
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlfunctioncall{ggplot}(mtcars, \hlfunctioncall{aes}(cyl, mpg, color = vs)) +
-\hlfunctioncall{geom_point}(\hlfunctioncall{aes}(size = gear * 1.4))
-\end{alltt}
-\end{kframe}
-\includegraphics[width=.75\linewidth]{figure/boring-randomb_} 
-
-\end{knitrout}
-
-\end{frame}
-
-
-
-\begin{frame}[fragile]
-The first element of \texttt{x} is 1. Boring boxplots
-and histograms recorded by the PDF device:
-
-\begin{knitrout}\footnotesize
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-x <- \hlfunctioncall{rnorm}(100)
-y <- 1
+\hlfunctioncall{install.packages}(\hlstring{"ggplot2"}, dependencies = TRUE)
 \end{alltt}
 \end{kframe}
 \end{knitrout}
 
 \end{frame}
 
+
+% --------------------------------------------------------------
 \begin{frame}[fragile]
-The first element of \texttt{x} is -0.6809. Boring boxplots
-and histograms recorded by the PDF device:
+\frametitle{Download this PDF}
+\begingroup
+    \fontsize{15pt}{12pt}\selectfont
+\href{http://github.com/karthikram/ggplot-lecture}{github.com/karthikram/ggplot-lecture}
+\endgroup
+\includegraphics[scale=.31]{images/git_repo.png}
+\end{frame}
+% --------------------------------------------------------------
+% Template
+\begin{frame}[fragile]
+\frametitle{Base graphics}
+\begin{itemize}
+\item Ugly, laborious, and verbose\\
+\item There are better ways to describe statistical visualizations.\\
+\end{itemize}
+\end{frame}
+
+% --------------------------------------------------------------
+% Template
+\begin{frame}[fragile]
+\frametitle{Why \texttt{ggplot2}?}
+\begin{itemize}
+\item Follows a grammar, just like any language.
+\item It defines basic components that make up a sentence. In this case, the grammar defines components in a plot.
+\item Grammar of graphics originally coined by Lee Wilkinson
+\end{itemize}
+\end{frame}
+
+
+% --------------------------------------------------------------
+% Template
+\begin{frame}[fragile]
+\frametitle{Why \texttt{ggplot2}?}
+\begin{itemize}
+\item  Supports a continuum of expertise.
+\item Get started right away but with practice you can effortless build complex, publication quality figures.
+\end{itemize}
+\end{frame}
+
+% --------------------------------------------------------------
+\section*{Basics}
+\frame{\sectionpage}
+
+% Template
+\begin{frame}[fragile]
+\frametitle{Some terminology}
+\begin{itemize}
+\item \textbf{ggplot} - The main function where you specify the dataset and variables to plot\\
+\item \textbf{geoms} - geometric objects
+    \begin{itemize}
+    \item geom\_point(), geom\_bar(), geom\_density(), geom\_line(), geom\_area()
+    \end{itemize}
+\item \textbf{aes} -  aesthetics
+        \begin{itemize}
+    \item shape, transparency, color, fill.
+    \end{itemize}
+\item \textbf{scales}  Define how your data will be plotted
+        \begin{itemize}
+    \item \emph{continuous}, \emph{discrete}, \emph{log}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+
+\section*{Assembling your first ggplot}
+\frame{\sectionpage}
+
+% --------------------------------------------------------------
+% Template
+\begin{frame}[fragile]
+\frametitle{The iris dataset}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{head}(iris)
+\end{alltt}
+\begin{verbatim}
+##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\end{frame}
+
+% --------------------------------------------------------------
+% Template
+\begin{frame}[fragile]
+\frametitle{Let's try an example}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{ggplot}(data = iris, \hlfunctioncall{aes}(x= Sepal.Length, y= Sepal.Width)) +
+\hlfunctioncall{geom_point}()
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.75\linewidth]{figure/first_plot_} 
+
+\end{knitrout}
+
+\end{frame}
+
+% --------------------------------------------------------------
+% Template
+\begin{frame}[fragile]
+\frametitle{Basic structure}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{ggplot}(data = iris, \hlfunctioncall{aes}(x= Sepal.Length, y= Sepal.Width))
+ + \hlfunctioncall{geom_point}()
+myplot <- \hlfunctioncall{ggplot}(data = iris, \hlfunctioncall{aes}(x= Sepal.Length, y= Sepal.Width))
+myplot + \hlfunctioncall{geom_point}()
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\begin{itemize}
+\item Specify the data and variables inside the \texttt{ggplot} function.
+\item Anything else that goes in here becomes a global setting.
+\item Then add layers of geometric objects, statistical models, and panels.
+\end{itemize}
+\end{frame}
+% --------------------------------------------------------------
+% Template
+\begin{frame}[fragile]
+\frametitle{Increase the size of points}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{ggplot}(data = iris, \hlfunctioncall{aes}(x= Sepal.Length, y= Sepal.Width)) +
+\hlfunctioncall{geom_point}(size = 3)
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.75\linewidth]{figure/first_plot_size_} 
+
+\end{knitrout}
+
+\end{frame}
+
+% --------------------------------------------------------------
+% Template
+\begin{frame}[fragile]
+\frametitle{Add some color}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{ggplot}(iris, \hlfunctioncall{aes}(Sepal.Length, Sepal.Width, color = Species)) +
+\hlfunctioncall{geom_point}(size = 3)
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.75\linewidth]{figure/first_plot_color_} 
+
+\end{knitrout}
+
+\end{frame}
+
+% --------------------------------------------------------------
+% Template
+\begin{frame}[fragile]
+\frametitle{Also differentiate points by shape}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{ggplot}(iris, \hlfunctioncall{aes}(Sepal.Length, Sepal.Width, color = Species)) +
+\hlfunctioncall{geom_point}(\hlfunctioncall{aes}(shape = Species), size = 3)
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.75\linewidth]{figure/first_plot_shape_} 
+
+\end{knitrout}
+
+\end{frame}
+
+\section*{Exercise 1}
+\frame{\sectionpage}
+
+% --------------------------------------------------------------
+\begin{frame}[fragile]
+Make the following plot.\\
+Use the airquality dataset and generate a scatter plot of the year against xxx.\\
+Then increase the size of the points.
+
+\end{frame}
+% --------------------------------------------------------------
+\section*{Box plots}
+\frame{\sectionpage}
+
+\begin{frame}[fragile]
+See \texttt{geom\_boxplot} for list of options
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{library}(MASS)
+\hlfunctioncall{ggplot}(birthwt, \hlfunctioncall{aes}(\hlfunctioncall{factor}(race), bwt)) + \hlfunctioncall{geom_boxplot}()
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.75\linewidth]{figure/boxplots1_} 
+
+\end{knitrout}
+
+\end{frame}
+
+
+% --------------------------------------------------------------
+\section*{Histograms}
+\frame{\sectionpage}
+
+% --------------------------------------------------------------
+\begin{frame}[fragile]
+See \texttt{geom\_histogram} for list of options
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+h <- \hlfunctioncall{ggplot}(faithful, \hlfunctioncall{aes}(x=waiting))
+h + \hlfunctioncall{geom_histogram}(binwidth=30, colour=\hlstring{"black"})
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.75\linewidth]{figure/histogr_} 
+
+\end{knitrout}
+
+\end{frame}
+
+% --------------------------------------------------------------
+\begin{frame}[fragile]
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+h <- \hlfunctioncall{ggplot}(faithful, \hlfunctioncall{aes}(x=waiting))
+h + \hlfunctioncall{geom_histogram}(binwidth=8, fill=\hlstring{"steelblue"}, colour=\hlstring{"black"})
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.75\linewidth]{figure/histogra_} 
+
+\end{knitrout}
+
+\end{frame}
+
+% --------------------------------------------------------------
+\section*{Line plots}
+\frame{\sectionpage}
+
+\begin{frame}[fragile]
+A simple line plot
+
 
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{ggplot}(data, \hlfunctioncall{aes}(x, y)) + \hlfunctioncall{geom_point}(size = 4)
+climate <- \hlfunctioncall{read.csv}(\hlstring{"climate.csv"}, header = T)
+\hlfunctioncall{ggplot}(climate, \hlfunctioncall{aes}(Year, Anomaly10y)) +
+\hlfunctioncall{geom_line}()
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.75\linewidth]{figure/linea_} 
+
+\end{knitrout}
+
+\end{frame}
+
+\begin{frame}[fragile]
+We can also plot confidence regions
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{ggplot}(climate, \hlfunctioncall{aes}(Year, Anomaly10y)) +
+\hlfunctioncall{geom_ribbon}(\hlfunctioncall{aes}(ymin = Anomaly10y - Unc10y,
+ymax = Anomaly10y + Unc10y),
+fill = \hlstring{"blue"}, alpha = .1) +
+\hlfunctioncall{geom_line}(color = \hlstring{"steelblue"})
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.75\linewidth]{figure/lineb_} 
+
+\end{knitrout}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exercise}
+\begin{itemize}
+\item Modify the previous plot and change it such that there are three lines instead of one with a confidence band.
+
+\item Make the confidence bounds dashed red lines.
+\end{itemize}
+\end{frame}
+
+
+% --------------------------------------------------------------
+\section*{Bar plots}
+\frame{\sectionpage}
+
+\begin{frame}[fragile]
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{ggplot}(iris, \hlfunctioncall{aes}(Species, Sepal.Length)) +
+\hlfunctioncall{geom_bar}(stat=\hlstring{"identity"})
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.75\linewidth]{figure/barone_} 
+
+\end{knitrout}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+df  <- \hlfunctioncall{melt}(iris, id.vars=\hlstring{"Species"})
+\hlfunctioncall{ggplot}(df, \hlfunctioncall{aes}(Species, value, fill = variable)) +
+\hlfunctioncall{geom_bar}(stat=\hlstring{"identity"})
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.75\linewidth]{figure/bartwo_} 
+
+\end{knitrout}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+df  <- \hlfunctioncall{melt}(iris, id.vars=\hlstring{"Species"})
+\hlfunctioncall{ggplot}(df, \hlfunctioncall{aes}(Species, value, fill = variable)) +
+\hlfunctioncall{geom_bar}(stat=\hlstring{"identity"}, position = \hlstring{"dodge"})
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.75\linewidth]{figure/barthree} 
+
+\end{knitrout}
+
+\end{frame}
+
+% --------------------------------------------------------------
+\section*{plyr and reshape are key for using \texttt{R}}
+\frame{\sectionpage}
+
+\begin{frame}[fragile]
+\frametitle{plyr and reshape}
+These two packages are the swiss army knives of R.
+\begin{itemize}
+\item \texttt{plyr}
+    \begin{enumerate}
+    \item ddply
+    \item llply
+    \item join
+    \end{enumerate}
+\item \texttt{reshape}.
+    \begin{enumerate}
+    \item melt
+    \item dcast
+    \item acast
+    \end{enumerate}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+iris[1:2, ]
+\end{alltt}
+\begin{verbatim}
+##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+\end{verbatim}
+\begin{alltt}
+df  <- \hlfunctioncall{melt}(iris, measured.vars=\hlstring{"Species"})
+df[1:2, ]
+\end{alltt}
+\begin{verbatim}
+##   Species     variable value
+## 1  setosa Sepal.Length   5.1
+## 2  setosa Sepal.Length   4.9
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{ggplot}(df, \hlfunctioncall{aes}(Species, value, fill = variable)) +
+\hlfunctioncall{geom_bar}(stat=\hlstring{"identity"}, position=\hlstring{"dodge"})
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.75\linewidth]{figure/barthree_} 
+
+\end{knitrout}
+
+\end{frame}
+
+% --------------------------------------------------------------
+\section*{Exercise 2}
+\frame{\sectionpage}
+
+\begin{frame}[fragile]
+Take a dataset and make both a stacked bar chart and a dodged bar chart.
+\end{frame}
+
+% --------------------------------------------------------------
+\section*{Density Plots}
+\frame{\sectionpage}
+
+\begin{frame}[fragile]
+\frametitle{Density plots}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{ggplot}(faithful, \hlfunctioncall{aes}(waiting)) + \hlfunctioncall{geom_density}()
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.75\linewidth]{figure/densityone_} 
+
+\end{knitrout}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Density plots}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{ggplot}(faithful, \hlfunctioncall{aes}(waiting)) +
+\hlfunctioncall{geom_density}(fill = \hlstring{"blue"}, alpha = 0.1)
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.75\linewidth]{figure/densityonefove_} 
+
+\end{knitrout}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{ggplot}(faithful, \hlfunctioncall{aes}(waiting)) +
+\hlfunctioncall{geom_line}(stat=\hlstring{"density"}, fill=\hlstring{"blue"})
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.75\linewidth]{figure/densitytwo___} 
+
+\end{knitrout}
+
+\end{frame}
+
+% --------------------------------------------------------------
+\section*{Exercise 2}
+\frame{\sectionpage}
+
+
+% --------------------------------------------------------------
+\section*{Mapping Variables to colors}
+\frame{\sectionpage}
+
+
+\begin{frame}[fragile]
+\frametitle{Colors}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{aes}(color = variable)
+\hlfunctioncall{aes}(color = \hlstring{"black"})
+\hlcomment{# Or add it as a scale}
+\hlfunctioncall{scale_fill_manual}(values = \hlfunctioncall{c}(\hlstring{"color1"}, \hlstring{"color2"}))
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{The RColorBrewer package}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{library}(RColorBrewer)
+\hlfunctioncall{display.brewer.all}()
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\includegraphics[scale=0.25]{images/color_palette.png}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Using a color brewer palette}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+df  <- \hlfunctioncall{melt}(iris, id.vars=\hlstring{"Species"})
+\hlfunctioncall{ggplot}(df, \hlfunctioncall{aes}(Species, value, fill = variable)) +
+\hlfunctioncall{geom_bar}(stat=\hlstring{"identity"}, position = \hlstring{"dodge"}) +
+\hlfunctioncall{scale_fill_brewer}(palette=\hlstring{"Set1"})
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.75\linewidth]{figure/barcolors} 
+
+\end{knitrout}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Manual color scale}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{ggplot}(iris, \hlfunctioncall{aes}(Sepal.Length, Sepal.Width, color = Species)) +
+\hlfunctioncall{geom_point}() +
+\hlfunctioncall{facet_grid}(Species ~ .) +
+\hlfunctioncall{scale_color_manual}(values = \hlfunctioncall{c}(\hlstring{"red"}, \hlstring{"green"}, \hlstring{"blue"}))
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.75\linewidth]{figure/facetgridcolors} 
+
+\end{knitrout}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Refer to a color chart for beautful visualizations}
+\url{http://tools.medialab.sciences-po.fr/iwanthue/}
+\includegraphics[scale=0.25]{images/color_schemes.png}
+\end{frame}
+
+
+
+
+
+\section*{Faceting}
+\frame{\sectionpage}
+
+\begin{frame}[fragile]
+\frametitle{Faceting along columns}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{ggplot}(iris, \hlfunctioncall{aes}(Sepal.Length, Sepal.Width, color = Species)) +
+\hlfunctioncall{geom_point}() +
+\hlfunctioncall{facet_grid}(Species ~ .)
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.75\linewidth]{figure/facetgrid1} 
+
+\end{knitrout}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{and along rows}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{ggplot}(iris, \hlfunctioncall{aes}(Sepal.Length, Sepal.Width, color = Species)) +
+\hlfunctioncall{geom_point}() +
+\hlfunctioncall{facet_grid}(. ~ Species)
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.75\linewidth]{figure/facet_grid2} 
+
+\end{knitrout}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Colors}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{ggplot}(iris, \hlfunctioncall{aes}(Sepal.Length, Sepal.Width, color = Species)) + \hlfunctioncall{geom_point}() + 
+    \hlfunctioncall{facet_wrap}(~Species)
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.75\linewidth]{figure/facet_wrap} 
+
+\end{knitrout}
+
+\end{frame}
+
+% --------------------------------------------------------------
+\section*{Plotting models}
+\frame{\sectionpage}
+
+
+\begin{frame}[fragile]
+\frametitle{Add statistics to your plot1}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{ggplot}(iris, \hlfunctioncall{aes}(Sepal.Length, Sepal.Width, color = Species)) +
+\hlfunctioncall{geom_point}(\hlfunctioncall{aes}(shape = Species), size = 3) +
+\hlfunctioncall{geom_smooth}(method=\hlstring{"lm"})
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.75\linewidth]{figure/adding_stats_} 
+
+\end{knitrout}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Add statistics to your plot2}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{ggplot}(iris, \hlfunctioncall{aes}(Sepal.Length, Sepal.Width, color = Species)) +
+\hlfunctioncall{geom_point}(\hlfunctioncall{aes}(shape = Species), size = 3) +
+\hlfunctioncall{geom_smooth}(method=\hlstring{"lm"}) +
+\hlfunctioncall{facet_grid}(. ~ Species)
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.75\linewidth]{figure/adding_stats2_} 
+
+\end{knitrout}
+
+\end{frame}
+
+% --------------------------------------------------------------
+\section*{Themes}
+\frame{\sectionpage}
+
+\begin{frame}[fragile]
+\frametitle{Adding themes}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{theme}()
+\hlcomment{# see ?theme() for more options}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
 
 
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{A themed plot}
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{ggplot}(data, \hlfunctioncall{aes}(x, y)) + \hlfunctioncall{geom_point}(size = 4)
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-
-
-\begin{knitrout}\footnotesize
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlfunctioncall{ggplot}(data, \hlfunctioncall{aes}(x, y)) + \hlfunctioncall{geom_point}(size = 4)
+\hlfunctioncall{ggplot}(iris, \hlfunctioncall{aes}(Sepal.Length, Sepal.Width, color = Species)) +
+\hlfunctioncall{geom_point}(size = 1.2, shape = 16) +
+\hlfunctioncall{facet_wrap}( ~ Species) +
+\hlfunctioncall{theme}(legend.key = \hlfunctioncall{element_rect}(fill = NA),
+legend.position = \hlstring{"bottom"},
+strip.background = \hlfunctioncall{element_rect}(fill = NA),
+axis.title.y = \hlfunctioncall{element_text}(angle = 0))
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -151,18 +768,160 @@ and histograms recorded by the PDF device:
 \end{frame}
 
 \begin{frame}[fragile]
-The first element of \texttt{x} is -0.6809. Boring boxplots
-and histograms recorded by the PDF device:
-
+\frametitle{Adding themes}
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=.75\linewidth]{figure/tempec} 
+\includegraphics[width=.75\linewidth]{figure/facet_wrap_theme_exec} 
 
 \end{knitrout}
 
+\end{frame}
+
+
+% --------------------------------------------------------------
+\section*{Create functions to automate your plotting}
+\frame{\sectionpage}
+
+\begin{frame}[fragile]
+\frametitle{Commonly used scales}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+my_custom_plot <- \hlfunctioncall{function}(df) \{
+    \hlfunctioncall{ggplot}(df, ...)
+\}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\end{frame}
+
+% --------------------------------------------------------------
+\section*{Scales}
+\frame{\sectionpage}
+
+\begin{frame}[fragile]
+\frametitle{Commonly used scales}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{scale_fill_discrete}(), \hlfunctioncall{scale_colour_discrete}()
+\hlfunctioncall{scale_fill_hue}(), \hlfunctioncall{scale_color_hue}()
+\hlfunctioncall{scale_fill_manual}(),  \hlfunctioncall{scale_color_manual}()
+\hlfunctioncall{scale_fill_brewer}(), \hlfunctioncall{scale_color_brewer}()
+\hlfunctioncall{scale_linetype}(), \hlfunctioncall{scale_shape_manual}()
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Adding a continuous scale}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{library}(MASS)
+\hlfunctioncall{ggplot}(birthwt, \hlfunctioncall{aes}(\hlfunctioncall{factor}(race), bwt)) +
+\hlfunctioncall{geom_boxplot}(width=.2) +
+\hlfunctioncall{scale_y_continuous}(labels = (\hlfunctioncall{paste0}(1:4, \hlstring{" K"})),
+breaks=\hlfunctioncall{seq}(1000, 4000, by = 1000))
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.75\linewidth]{figure/boxplots3_} 
+
+\end{knitrout}
+
+\end{frame}
+
+% Template
+\begin{frame}[fragile]
+\frametitle{Another example}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcomment{# Assign the plot to an object}
+dd <- \hlfunctioncall{ggplot}(iris, \hlfunctioncall{aes}(Sepal.Length, Sepal.Width, color = Species)) +
+\hlfunctioncall{geom_point}(size=4, shape=16) +
+\hlfunctioncall{facet_grid}(. ~Species)
+\hlcomment{# Now add a scale}
+dd +
+\hlfunctioncall{scale_y_continuous}(breaks=\hlfunctioncall{seq}(2, 8,by = 1),
+labels=\hlfunctioncall{paste0}(2:8, \hlstring{" cm"}))
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 \end{frame}
 
 
 
+% --------------------------------------------------------------
+\section*{Publication quality figures}
+\frame{\sectionpage}
+
+% How to save your plots
+\begin{frame}[fragile]
+\begin{itemize}
+\item If the plot is on your screen
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{ggsave}(\hlstring{"~/path/to/figure/filename.png"})
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\item If your plot is assigned to an object
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{ggsave}(plot1, \hlstring{"~/path/to/figure/filename.png"})
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+\item Specify a size
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{ggsave}(\hlstring{"/path/to/figure/filename.png"}, width = 6, height = 4)
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\item or any format (pdf, png, eps, jpg)
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{ggsave}(\hlstring{"/path/to/figure/filename.eps"})
+\hlfunctioncall{ggsave}(\hlstring{"/path/to/figure/filename.jpg"})
+\hlfunctioncall{ggsave}(\hlstring{"/path/to/figure/filename.pdf"})
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\end{itemize}
+\end{frame}
+
+
+
+
+% --------------------------------------------------------------
+% Template
+\begin{frame}[fragile]
+\frametitle{Further help}
+\begin{itemize}
+\item Practice
+\item Read the docs (either locally in \texttt{R} or at \href{docs.ggplot2.org}{http://docs.ggplot2.org})
+\item Work together
+\end{itemize}
+\end{frame}
+
+
+
+
+% --------------------------------------------------------------
+% end, hope it was useful.
 \end{document}
