@@ -4,6 +4,8 @@
 \documentclass{beamer}
 \usepackage{listings}
 \usepackage{inconsolata}
+\setbeamertemplate{frametitle}[default][center]
+\usepackage{url}
 % --------------------------------------------------------------
 <<setup, include=FALSE>>=
 # smaller font size for chunks
@@ -24,17 +26,80 @@ options(width=60)
 % --------------------------------------------------------------
 % Template
 \begin{frame}[fragile]
-\frametitle{Base graphics \texttt{ggplot2}}
-Based on Grammar of Graphics.\\
-Map aesthetics on to your data.\\
+\frametitle{GitHub Repository}
+http://github.com/karthikram/ggplot-lecuture
+\end{frame}
+% --------------------------------------------------------------
+% Template
+\begin{frame}[fragile]
+\frametitle{Base graphics}
+Ugly, laborious, and verbose\\
+There are better ways to describe statistical visualizations.\\
+\end{frame}
+
+% --------------------------------------------------------------
+% Template
+\begin{frame}[fragile]
+\frametitle{Why? \texttt{ggplot2}}
+Follows a grammar, just like any language. It defines basic components that make up a sentence. In this case, the grammar defines components in a plot.\\
+
+Grammar of graphics originally coined by Lee Wilkinson\\
+\end{frame}
+
+
+% --------------------------------------------------------------
+% Template
+\begin{frame}[fragile]
+\frametitle{Why \texttt{ggplot2}?}
+Supports a continuum of expertise. Get started right away but with practice you can effortless build complex, publication quality figures.\\
+
+Reuse old plots.\\
+\end{frame}
+% --------------------------------------------------------------
+% Template
+\begin{frame}
+\begin{itemize}
+\item The \textbf{knitr}\textbf{\emph{ }}package allows you to embed R code
+and figures in \LaTeX{} documents
+
+\begin{itemize}
+\item It has functionality similar to Sweave but looks nicer and gives you
+more control
+\end{itemize}
+\item If you already have Sweave working in getting
+to work is trivial
+
+\begin{enumerate}
+\item Install the \textbf{knitr} package in \emph{R}
+\item Read \url{http://yihui.name/knitr/demo/lyx/}
+\end{enumerate}
+\item If you use Sweave or   with Beamer in   you probably
+use the \emph{Beamer Fragile} module%
+\footnote{\url{http://www.lyx.org/trac/ticket/7273}%
+} too. Let's see if \textbf{knitr} works with Beamer in this small
+demo.
+\end{itemize}
 \end{frame}
 
 % --------------------------------------------------------------
 % Template
 \begin{frame}[fragile]
 \frametitle{Some terminology}
-\texttt{geoms} - short for geometric objects\\
-\texttt{aes} - short for aesthetics\\
+\begin{itemize}
+\item \texttt{geoms} - short for geometric objects\\
+\item \texttt{aes} - short for aesthetics\\
+\item \texttt{scales}  Define how your data will be plotted\\
+\end{itemize}
+\end{frame}
+
+% --------------------------------------------------------------
+% Template
+\begin{frame}[fragile]
+\frametitle{Basic structure}
+Specify the data and variables inside the \texttt{ggplot} function. Anything else that goes in here becomes a global setting.\\
+
+Then add layers of geometric objects, statistical models, and panels.
+
 \end{frame}
 
 % --------------------------------------------------------------
@@ -47,20 +112,11 @@ examples: \texttt{geom\_point}, geom\_bar, geom\_area, geom\_density.
 \end{frame}
 
 % --------------------------------------------------------------
-% Template
-\begin{frame}[fragile]
-\frametitle{Why ggplot2?}
-\texttt{geoms} - Very intuitive\\
-\texttt{aes} - progressively build more complex plots\\
-\end{frame}
-
-
-% --------------------------------------------------------------
 \begin{frame}[fragile]
 This is a demo of \textbf{ggplot2}:
 <<boring-random, fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold', tidy=FALSE>>=
 ggplot(mtcars, aes(cyl, mpg, color = vs)) +
-geom_point(aes(size = gear*1.4))
+geom_point(aes(size = gear * 1.4))
 x <- 1:100
 @
 \end{frame}
@@ -139,14 +195,40 @@ ggsave("~/path/to/figure/filename.pdf")
 \end{frame}
 
 % % --------------------------------------------------------------
+% % Faceting
+\begin{frame}[fragile]
+\frametitle{Faceting}
+Splitting Data into Subplots with Facets \\
+Use \texttt{facet\_wrap()} or \texttt{facet\_grid()}
+<<facets0, eval = FALSE, out.width='.75\\linewidth'>>=
+p <- ggplot(mpg, aes(x=displ, y=hwy)) + geom_point()
+p + facet_grid(drv ~ .)
+@
+or horizontally
+<<facets1, eval = FALSE, out.width='.75\\linewidth'>>=
+p <- ggplot(mpg, aes(x=displ, y=hwy)) + geom_point()
+p + facet_grid(.~ drv)
+@
+\end{frame}
+
 % % Template
-% \begin{frame}[fragile]
-% \frametitle{Title \texttt{ggplot2}}
-% If the plot is on your screen
-% <<chunk_title0, eval = FALSE, out.width='.75\\linewidth'>>=
-% Some code
-% @
-% \end{frame}
+\begin{frame}[fragile]
+\frametitle{Faceting}
+<<facets2, eval = TRUE, out.width='.55\\linewidth'>>=
+p <- ggplot(mpg, aes(x=displ, y=hwy)) + geom_point()
+p + facet_grid(drv ~ .)
+@
+\end{frame}
+
+% % Template
+\begin{frame}[fragile]
+\frametitle{Faceting}
+<<facets3, eval = TRUE, out.width='.55\\linewidth'>>=
+p <- ggplot(mpg, aes(x=displ, y=hwy)) + geom_point()
+p + facet_grid(. ~ drv)
+@
+\end{frame}
+
 
 % --------------------------------------------------------------
 % Template
@@ -166,14 +248,16 @@ ggsave(file = '/path/to/plot/file_name.extension')
 
 
 % --------------------------------------------------------------
+% SCALES
+% --------------------------------------------------------------
 % Template
-% \begin{frame}[fragile]
-% \frametitle{Title \texttt{ggplot2}}
-% If the plot is on your screen
-% <<chunk_title5, eval = FALSE, out.width='.75\\linewidth'>>=
-% Some code
-% @
-% \end{frame}
+\begin{frame}[fragile]
+\frametitle{Scales}
+\begingroup
+    \fontsize{8pt}{12pt}\selectfont
+continuous\_scale , discrete\_scale  , scale\_alpha  , scale\_alpha\_continuous  , scale\_alpha\_discrete , scale\_alpha\_identity, scale\_alpha\_manual, scale\_area  , scale\_color\_brewer, scale\_color\_continuous  , scale\_color\_discrete , scale\_color\_gradient, scale\_color\_gradient2, scale\_color\_gradientn, scale\_color\_grey , scale\_color\_hue , scale\_color\_identity , scale\_color\_manual  , scale\_colour\_brewer  , scale\_colour\_continuous , scale\_colour\_discrete, scale\_colour\_gradient, scale\_colour\_gradient2, scale\_colour\_gradientn  , scale\_colour\_grey, scale\_colour\_hue, scale\_colour\_identity, scale\_colour\_manual , scale\_fill\_brewer, scale\_fill\_continuous, scale\_fill\_discrete  , scale\_fill\_gradient , scale\_fill\_gradient2 , scale\_fill\_gradientn, scale\_fill\_grey  , scale\_fill\_hue  , scale\_fill\_identity  , scale\_fill\_manual, scale\_linetype, scale\_linetype\_continuous, scale\_linetype\_discrete  , scale\_linetype\_identity , scale\_linetype\_manual, scale\_shape , scale\_shape\_continuous, scale\_shape\_discrete, scale\_shape\_identity , scale\_shape\_manual  , scale\_size, scale\_size\_area , scale\_size\_continuous, scale\_size\_discrete , scale\_size\_identity  , scale\_size\_manual, scale\_x\_continuous, scale\_x\_date, scale\_x\_datetime , scale\_x\_discrete, scale\_x\_log10, scale\_x\_reverse , scale\_x\_sqrt , scale\_y\_continuous  , scale\_y\_date , scale\_y\_datetime, scale\_y\_discrete , scale\_y\_log10, scale\_y\_reverse  , scale\_y\_sqrt
+\endgroup
+\end{frame}
 
 % --------------------------------------------------------------
 % end, hope it was useful.
