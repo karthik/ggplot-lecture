@@ -5,6 +5,8 @@ Author: [Karthik Ram](mailto:karthik.ram+ggplot2@gmail.com)
 
 Here are my [slides](https://github.com/karthikram/ggplot-lecture/blob/master/ggplot.pdf?raw=true) for the Spring 2013 R seminar in Integrative Biology at UC Berkeley. The source file is `ggplot.Rnw`. Feel free to modify and reuse as necessary.
 
+![slides](slides.png)
+
 To generate the pdf presentation
 
 ```
