@@ -171,11 +171,9 @@ geom_point(aes(shape = Species), size = 3)
 @
 \end{frame}
 
-\section*{Exercise 1}
-\frame{\sectionpage}
-
 % --------------------------------------------------------------
 \begin{frame}[fragile]
+\frametitle{Exercise 1}
 Make the following plot.\\
 Use the airquality dataset and generate a scatter plot of the year against xxx.\\
 Then increase the size of the points.
@@ -320,11 +318,9 @@ geom_bar(stat="identity", position="dodge")
 \end{frame}
 
 % --------------------------------------------------------------
-\section*{Exercise 2}
-\frame{\sectionpage}
-
 \begin{frame}[fragile]
-Take a dataset and make both a stacked bar chart and a dodged bar chart.
+\frametitle{Exercise 2}
+Take a xxxx dataset and make both a stacked bar chart and a dodged bar chart.
 \end{frame}
 
 % --------------------------------------------------------------
@@ -354,10 +350,6 @@ ggplot(faithful, aes(waiting)) +
 geom_line(stat="density", fill="blue")
 @
 \end{frame}
-
-% --------------------------------------------------------------
-\section*{Exercise 2}
-\frame{\sectionpage}
 
 
 % --------------------------------------------------------------
@@ -411,9 +403,7 @@ scale_color_manual(values = c("red", "green", "blue"))
 \includegraphics[scale=0.25]{images/color_schemes.png}
 \end{frame}
 
-
-
-
+% -----------------------------------
 
 \section*{Faceting}
 \frame{\sectionpage}
@@ -471,7 +461,7 @@ facet_grid(. ~ Species)
 % --------------------------------------------------------------
 \section*{Themes}
 \frame{\sectionpage}
-
+Themes are a great way to define custom plots.
 \begin{frame}[fragile]
 \frametitle{Adding themes}
 <<theme_list, eval = FALSE, fig.width=4, fig.height=6, out.width='.75\\linewidth'>>=
@@ -512,6 +502,7 @@ axis.title.y = element_text(angle = 0))
 \frametitle{ggthemes library}
 <<facet_wrap_theme_exec, eval = FALSE, echo = TRUE, fig.width=4, fig.height=3, out.width='.75\\linewidth'>>=
 install.packages('ggthemes')
+library(ggthemes)
 # Then add one of these themes to your plot
 + theme_stata()
 + theme_excel()
