@@ -63,10 +63,6 @@
 \setcounter{secnumdepth}{-1}
 \usetheme{Amsterdam}
 % --------------------------------------------------------------
-
-
-
-% --------------------------------------------------------------
 % Setting up some knitr options
 
 
@@ -236,7 +232,7 @@ myplot + \hlfunctioncall{geom_point}()
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{ggplot}(data = iris, \hlfunctioncall{aes}(x= Sepal.Length, y= Sepal.Width)) +
+\hlfunctioncall{ggplot}(data = iris, \hlfunctioncall{aes}(x = Sepal.Length, y = Sepal.Width)) +
 \hlfunctioncall{geom_point}(size = 3)
 \end{alltt}
 \end{kframe}
@@ -443,7 +439,7 @@ fill = \hlstring{"blue"}, alpha = .1) +
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-df  <- \hlfunctioncall{melt}(iris, id.vars=\hlstring{"Species"})
+df  <- \hlfunctioncall{melt}(iris, id.vars = \hlstring{"Species"})
 \hlfunctioncall{ggplot}(df, \hlfunctioncall{aes}(Species, value, fill = variable)) +
 \hlfunctioncall{geom_bar}(stat = \hlstring{"identity"})
 \end{alltt}
@@ -629,7 +625,7 @@ Using the d2 dataset you created earlier, generate this plot below. Take a quick
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-df  <- \hlfunctioncall{melt}(iris, id.vars=\hlstring{"Species"})
+df  <- \hlfunctioncall{melt}(iris, id.vars = \hlstring{"Species"})
 \hlfunctioncall{ggplot}(df, \hlfunctioncall{aes}(Species, value, fill = variable)) +
 \hlfunctioncall{geom_bar}(stat = \hlstring{"identity"}, position = \hlstring{"dodge"}) +
 \hlfunctioncall{scale_fill_brewer}(palette = \hlstring{"Set1"})
@@ -879,8 +875,8 @@ my_custom_plot <- \hlfunctioncall{function}(df) \{
 \hlfunctioncall{library}(MASS)
 \hlfunctioncall{ggplot}(birthwt, \hlfunctioncall{aes}(\hlfunctioncall{factor}(race), bwt)) +
 \hlfunctioncall{geom_boxplot}(width = .2) +
-\hlfunctioncall{scale_y_continuous}(labels = (\hlfunctioncall{paste0}(1:4, \hlstring{" K"})),
-breaks=\hlfunctioncall{seq}(1000, 4000, by = 1000))
+\hlfunctioncall{scale_y_continuous}(labels = (\hlfunctioncall{paste0}(1:4, \hlstring{" Kg"})),
+breaks = \hlfunctioncall{seq}(1000, 4000, by = 1000))
 \end{alltt}
 \end{kframe}
 \includegraphics[width=.75\linewidth]{figure/boxplots3_} 
@@ -902,8 +898,8 @@ dd <- \hlfunctioncall{ggplot}(iris, \hlfunctioncall{aes}(Sepal.Length, Sepal.Wid
 \hlfunctioncall{facet_grid}(. ~Species)
 \hlcomment{# Now add a scale}
 dd +
-\hlfunctioncall{scale_y_continuous}(breaks=\hlfunctioncall{seq}(2, 8,by = 1),
-labels=\hlfunctioncall{paste0}(2:8, \hlstring{" cm"}))
+\hlfunctioncall{scale_y_continuous}(breaks = \hlfunctioncall{seq}(2, 8, by = 1),
+labels = \hlfunctioncall{paste0}(2:8, \hlstring{" cm"}))
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -933,7 +929,7 @@ labels=\hlfunctioncall{paste0}(2:8, \hlstring{" cm"}))
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{ggsave}(plot1, \hlstring{"~/path/to/figure/filename.png"})
+\hlfunctioncall{ggsave}(plot1, file = \hlstring{"~/path/to/figure/filename.png"})
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -943,7 +939,8 @@ labels=\hlfunctioncall{paste0}(2:8, \hlstring{" cm"}))
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{ggsave}(\hlstring{"/path/to/figure/filename.png"}, width = 6, height = 4)
+\hlfunctioncall{ggsave}(file = \hlstring{"/path/to/figure/filename.png"}, width = 6,
+height =4)
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -952,9 +949,9 @@ labels=\hlfunctioncall{paste0}(2:8, \hlstring{" cm"}))
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{ggsave}(\hlstring{"/path/to/figure/filename.eps"})
-\hlfunctioncall{ggsave}(\hlstring{"/path/to/figure/filename.jpg"})
-\hlfunctioncall{ggsave}(\hlstring{"/path/to/figure/filename.pdf"})
+\hlfunctioncall{ggsave}(file = \hlstring{"/path/to/figure/filename.eps"})
+\hlfunctioncall{ggsave}(file = \hlstring{"/path/to/figure/filename.jpg"})
+\hlfunctioncall{ggsave}(file = \hlstring{"/path/to/figure/filename.pdf"})
 \end{alltt}
 \end{kframe}
 \end{knitrout}
