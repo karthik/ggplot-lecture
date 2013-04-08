@@ -67,17 +67,17 @@
 
 
 % --------------------------------------------------------------
+% Setting up some knitr options
 
 
 
+% --------------------------------------------------------------
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-
 \begin{document}
 \title{Data Visualization with R \& ggplot2}
 \author{Karthik Ram}
 \maketitle
 % --------------------------------------------------------------
-% Template
 \begin{frame}[fragile]
 \frametitle{Some housekeeping}
 Install some packages
@@ -96,14 +96,14 @@ Install some packages
 \begin{frame}[fragile]
 \frametitle{Download this PDF}
 \begingroup
-    \fontsize{15pt}{12pt}\selectfont
+    \fontsize{12pt}{12pt}\selectfont
 \href{http://github.com/karthikram/ggplot-lecture}{github.com/karthikram/ggplot-lecture}\\
-\href{https://speakerdeck.com/karthik/introduction-to-ggplot2}{Copy at SpeakerDeck}
+\href{https://speakerdeck.com/karthik/}{https://speakerdeck.com/karthik/}
 \endgroup
 \includegraphics[scale=.31]{images/git_repo.png}
 \end{frame}
+
 % --------------------------------------------------------------
-% Template
 \begin{frame}[fragile]
 \frametitle{Base graphics}
 \begin{itemize}
@@ -112,8 +112,6 @@ Install some packages
 \end{itemize}
 \end{frame}
 
-% --------------------------------------------------------------
-% Template
 \begin{frame}[fragile]
 \frametitle{Why \texttt{ggplot2}?}
 \begin{itemize}
@@ -125,7 +123,6 @@ Install some packages
 
 
 % --------------------------------------------------------------
-% Template
 \begin{frame}[fragile]
 \frametitle{Why \texttt{ggplot2}?}
 \begin{itemize}
@@ -138,7 +135,7 @@ Install some packages
 \section*{Basics}
 \frame{\sectionpage}
 
-% Template
+
 \begin{frame}[fragile]
 \frametitle{Some terminology}
 \begin{itemize}
@@ -159,12 +156,11 @@ Install some packages
 \end{frame}
 
 
-
+% --------------------------------------------------------------
 \section*{Assembling your first ggplot}
 \frame{\sectionpage}
 
 % --------------------------------------------------------------
-% Template
 \begin{frame}[fragile]
 \frametitle{The iris dataset}
 \begin{knitrout}\footnotesize
@@ -187,13 +183,12 @@ Install some packages
 \end{frame}
 
 % --------------------------------------------------------------
-% Template
 \begin{frame}[fragile]
 \frametitle{Let's try an example}
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{ggplot}(data = iris, \hlfunctioncall{aes}(x= Sepal.Length, y= Sepal.Width)) +
+\hlfunctioncall{ggplot}(data = iris, \hlfunctioncall{aes}(x = Sepal.Length, y = Sepal.Width)) +
 \hlfunctioncall{geom_point}()
 \end{alltt}
 \end{kframe}
@@ -204,7 +199,6 @@ Install some packages
 \end{frame}
 
 % --------------------------------------------------------------
-% Template
 \begin{frame}[fragile]
 \frametitle{Basic structure}
 \begin{knitrout}\footnotesize
@@ -212,7 +206,7 @@ Install some packages
 \begin{alltt}
 \hlfunctioncall{ggplot}(data = iris, \hlfunctioncall{aes}(x= Sepal.Length, y= Sepal.Width))
  + \hlfunctioncall{geom_point}()
-myplot <- \hlfunctioncall{ggplot}(data = iris, \hlfunctioncall{aes}(x= Sepal.Length, y= Sepal.Width))
+myplot <- \hlfunctioncall{ggplot}(data = iris, \hlfunctioncall{aes}(x = Sepal.Length, y = Sepal.Width))
 myplot + \hlfunctioncall{geom_point}()
 \end{alltt}
 \end{kframe}
@@ -224,8 +218,19 @@ myplot + \hlfunctioncall{geom_point}()
 \item Then add layers of geometric objects, statistical models, and panels.
 \end{itemize}
 \end{frame}
+
 % --------------------------------------------------------------
-% Template
+\begin{frame}[fragile]
+\frametitle{Quick note}
+\begin{itemize}
+\item Never use \texttt{qplot} - short for quick plot.
+\item You'll end up unlearning and relearning a good bit.
+\end{itemize}
+
+\end{frame}
+
+
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Increase the size of points}
 \begin{knitrout}\footnotesize
@@ -242,7 +247,6 @@ myplot + \hlfunctioncall{geom_point}()
 \end{frame}
 
 % --------------------------------------------------------------
-% Template
 \begin{frame}[fragile]
 \frametitle{Add some color}
 \begin{knitrout}\footnotesize
@@ -259,7 +263,6 @@ myplot + \hlfunctioncall{geom_point}()
 \end{frame}
 
 % --------------------------------------------------------------
-% Template
 \begin{frame}[fragile]
 \frametitle{Differentiate points by shape}
 \begin{knitrout}\footnotesize
@@ -277,7 +280,7 @@ myplot + \hlfunctioncall{geom_point}()
 
 % --------------------------------------------------------------
 \begin{frame}[fragile]
-\frametitle{Exercise 2 1}
+\frametitle{Exercise 1}
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -326,8 +329,8 @@ See \texttt{?geom\_histogram} for list of options
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-h <- \hlfunctioncall{ggplot}(faithful, \hlfunctioncall{aes}(x=waiting))
-h + \hlfunctioncall{geom_histogram}(binwidth=30, colour=\hlstring{"black"})
+h <- \hlfunctioncall{ggplot}(faithful, \hlfunctioncall{aes}(x = waiting))
+h + \hlfunctioncall{geom_histogram}(binwidth = 30, colour = \hlstring{"black"})
 \end{alltt}
 \end{kframe}
 \includegraphics[width=.75\linewidth]{figure/histogr_} 
@@ -341,8 +344,8 @@ h + \hlfunctioncall{geom_histogram}(binwidth=30, colour=\hlstring{"black"})
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-h <- \hlfunctioncall{ggplot}(faithful, \hlfunctioncall{aes}(x=waiting))
-h + \hlfunctioncall{geom_histogram}(binwidth=8, fill=\hlstring{"steelblue"}, colour=\hlstring{"black"})
+h <- \hlfunctioncall{ggplot}(faithful, \hlfunctioncall{aes}(x = waiting))
+h + \hlfunctioncall{geom_histogram}(binwidth = 8, fill = \hlstring{"steelblue"}, colour = \hlstring{"black"})
 \end{alltt}
 \end{kframe}
 \includegraphics[width=.75\linewidth]{figure/histogra_} 
@@ -400,6 +403,7 @@ fill = \hlstring{"blue"}, alpha = .1) +
 
 \end{frame}
 
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Exercise 2}
 \begin{itemize}
@@ -419,12 +423,13 @@ fill = \hlstring{"blue"}, alpha = .1) +
 \section*{Bar plots}
 \frame{\sectionpage}
 
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlfunctioncall{ggplot}(iris, \hlfunctioncall{aes}(Species, Sepal.Length)) +
-\hlfunctioncall{geom_bar}(stat=\hlstring{"identity"})
+\hlfunctioncall{geom_bar}(stat = \hlstring{"identity"})
 \end{alltt}
 \end{kframe}
 \includegraphics[width=.75\linewidth]{figure/barone_} 
@@ -433,13 +438,14 @@ fill = \hlstring{"blue"}, alpha = .1) +
 
 \end{frame}
 
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 df  <- \hlfunctioncall{melt}(iris, id.vars=\hlstring{"Species"})
 \hlfunctioncall{ggplot}(df, \hlfunctioncall{aes}(Species, value, fill = variable)) +
-\hlfunctioncall{geom_bar}(stat=\hlstring{"identity"})
+\hlfunctioncall{geom_bar}(stat = \hlstring{"identity"})
 \end{alltt}
 \end{kframe}
 \includegraphics[width=.75\linewidth]{figure/bartwo_} 
@@ -474,6 +480,7 @@ These two packages are the swiss army knives of R.
 \end{frame}
 
 
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -486,7 +493,7 @@ iris[1:2, ]
 ## 2          4.9         3.0          1.4         0.2  setosa
 \end{verbatim}
 \begin{alltt}
-df  <- \hlfunctioncall{melt}(iris, id.vars=\hlstring{"Species"})
+df  <- \hlfunctioncall{melt}(iris, id.vars = \hlstring{"Species"})
 df[1:2, ]
 \end{alltt}
 \begin{verbatim}
@@ -500,12 +507,13 @@ df[1:2, ]
 \end{frame}
 
 
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlfunctioncall{ggplot}(df, \hlfunctioncall{aes}(Species, value, fill = variable)) +
-\hlfunctioncall{geom_bar}(stat=\hlstring{"identity"}, position=\hlstring{"dodge"})
+\hlfunctioncall{geom_bar}(stat = \hlstring{"identity"}, position = \hlstring{"dodge"})
 \end{alltt}
 \end{kframe}
 \includegraphics[width=.75\linewidth]{figure/barthree_} 
@@ -544,6 +552,7 @@ Using the d2 dataset you created earlier, generate this plot below. Take a quick
 
 \end{frame}
 
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Density plots}
 \begin{knitrout}\footnotesize
@@ -561,12 +570,13 @@ Using the d2 dataset you created earlier, generate this plot below. Take a quick
 
 
 
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlfunctioncall{ggplot}(faithful, \hlfunctioncall{aes}(waiting)) +
-\hlfunctioncall{geom_line}(stat=\hlstring{"density"})
+\hlfunctioncall{geom_line}(stat = \hlstring{"density"})
 \end{alltt}
 \end{kframe}
 \includegraphics[width=.75\linewidth]{figure/densitytwo___} 
@@ -581,6 +591,7 @@ Using the d2 dataset you created earlier, generate this plot below. Take a quick
 \frame{\sectionpage}
 
 
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Colors}
 \begin{knitrout}\footnotesize
@@ -597,6 +608,7 @@ Using the d2 dataset you created earlier, generate this plot below. Take a quick
 \end{frame}
 
 
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{The RColorBrewer package}
 \begin{knitrout}\footnotesize
@@ -611,6 +623,7 @@ Using the d2 dataset you created earlier, generate this plot below. Take a quick
 \includegraphics[scale=0.25]{images/color_palette.png}
 \end{frame}
 
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Using a color brewer palette}
 \begin{knitrout}\footnotesize
@@ -618,8 +631,8 @@ Using the d2 dataset you created earlier, generate this plot below. Take a quick
 \begin{alltt}
 df  <- \hlfunctioncall{melt}(iris, id.vars=\hlstring{"Species"})
 \hlfunctioncall{ggplot}(df, \hlfunctioncall{aes}(Species, value, fill = variable)) +
-\hlfunctioncall{geom_bar}(stat=\hlstring{"identity"}, position = \hlstring{"dodge"}) +
-\hlfunctioncall{scale_fill_brewer}(palette=\hlstring{"Set1"})
+\hlfunctioncall{geom_bar}(stat = \hlstring{"identity"}, position = \hlstring{"dodge"}) +
+\hlfunctioncall{scale_fill_brewer}(palette = \hlstring{"Set1"})
 \end{alltt}
 \end{kframe}
 \includegraphics[width=.75\linewidth]{figure/barcolors} 
@@ -628,6 +641,7 @@ df  <- \hlfunctioncall{melt}(iris, id.vars=\hlstring{"Species"})
 
 \end{frame}
 
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Manual color scale}
 \begin{knitrout}\footnotesize
@@ -645,6 +659,7 @@ df  <- \hlfunctioncall{melt}(iris, id.vars=\hlstring{"Species"})
 
 \end{frame}
 
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Refer to a color chart for beautful visualizations}
 \url{http://tools.medialab.sciences-po.fr/iwanthue/}
@@ -672,6 +687,7 @@ df  <- \hlfunctioncall{melt}(iris, id.vars=\hlstring{"Species"})
 
 \end{frame}
 
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{and along rows}
 \begin{knitrout}\footnotesize
@@ -688,6 +704,7 @@ df  <- \hlfunctioncall{melt}(iris, id.vars=\hlstring{"Species"})
 
 \end{frame}
 
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{or just wrap your panels}
 \begin{knitrout}\footnotesize
@@ -709,13 +726,14 @@ df  <- \hlfunctioncall{melt}(iris, id.vars=\hlstring{"Species"})
 \frame{\sectionpage}
 
 
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlfunctioncall{ggplot}(iris, \hlfunctioncall{aes}(Sepal.Length, Sepal.Width, color = Species)) +
 \hlfunctioncall{geom_point}(\hlfunctioncall{aes}(shape = Species), size = 3) +
-\hlfunctioncall{geom_smooth}(method=\hlstring{"lm"})
+\hlfunctioncall{geom_smooth}(method = \hlstring{"lm"})
 \end{alltt}
 \end{kframe}
 \includegraphics[width=.75\linewidth]{figure/adding_stats_} 
@@ -724,13 +742,14 @@ df  <- \hlfunctioncall{melt}(iris, id.vars=\hlstring{"Species"})
 
 \end{frame}
 
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlfunctioncall{ggplot}(iris, \hlfunctioncall{aes}(Sepal.Length, Sepal.Width, color = Species)) +
 \hlfunctioncall{geom_point}(\hlfunctioncall{aes}(shape = Species), size = 3) +
-\hlfunctioncall{geom_smooth}(method=\hlstring{"lm"}) +
+\hlfunctioncall{geom_smooth}(method = \hlstring{"lm"}) +
 \hlfunctioncall{facet_grid}(. ~ Species)
 \end{alltt}
 \end{kframe}
@@ -744,6 +763,7 @@ df  <- \hlfunctioncall{melt}(iris, id.vars=\hlstring{"Species"})
 \section*{Themes}
 \frame{\sectionpage}
 
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Adding themes}
 Themes are a great way to define custom plots.
@@ -760,6 +780,7 @@ Themes are a great way to define custom plots.
 \end{frame}
 
 
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{A themed plot}
 \begin{knitrout}\footnotesize
@@ -778,6 +799,7 @@ axis.title.y = \hlfunctioncall{element_text}(angle = 0))
 
 \end{frame}
 
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Adding themes}
 \begin{knitrout}\footnotesize
@@ -788,6 +810,7 @@ axis.title.y = \hlfunctioncall{element_text}(angle = 0))
 
 \end{frame}
 
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{ggthemes library}
 \begin{knitrout}\footnotesize
@@ -811,6 +834,7 @@ axis.title.y = \hlfunctioncall{element_text}(angle = 0))
 \section*{Create functions to automate your plotting}
 \frame{\sectionpage}
 
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Write functions for day to day plots}
 \begin{knitrout}\footnotesize
@@ -829,6 +853,7 @@ my_custom_plot <- \hlfunctioncall{function}(df) \{
 \section*{Scales}
 \frame{\sectionpage}
 
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Commonly used scales}
 \begin{knitrout}\footnotesize
@@ -845,6 +870,7 @@ my_custom_plot <- \hlfunctioncall{function}(df) \{
 
 \end{frame}
 
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Adding a continuous scale}
 \begin{knitrout}\footnotesize
@@ -852,7 +878,7 @@ my_custom_plot <- \hlfunctioncall{function}(df) \{
 \begin{alltt}
 \hlfunctioncall{library}(MASS)
 \hlfunctioncall{ggplot}(birthwt, \hlfunctioncall{aes}(\hlfunctioncall{factor}(race), bwt)) +
-\hlfunctioncall{geom_boxplot}(width=.2) +
+\hlfunctioncall{geom_boxplot}(width = .2) +
 \hlfunctioncall{scale_y_continuous}(labels = (\hlfunctioncall{paste0}(1:4, \hlstring{" K"})),
 breaks=\hlfunctioncall{seq}(1000, 4000, by = 1000))
 \end{alltt}
@@ -863,7 +889,8 @@ breaks=\hlfunctioncall{seq}(1000, 4000, by = 1000))
 
 \end{frame}
 
-% Template
+
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Another example}
 \begin{knitrout}\footnotesize
@@ -871,7 +898,7 @@ breaks=\hlfunctioncall{seq}(1000, 4000, by = 1000))
 \begin{alltt}
 \hlcomment{# Assign the plot to an object}
 dd <- \hlfunctioncall{ggplot}(iris, \hlfunctioncall{aes}(Sepal.Length, Sepal.Width, color = Species)) +
-\hlfunctioncall{geom_point}(size=4, shape=16) +
+\hlfunctioncall{geom_point}(size = 4, shape = 16) +
 \hlfunctioncall{facet_grid}(. ~Species)
 \hlcomment{# Now add a scale}
 dd +
@@ -890,6 +917,7 @@ labels=\hlfunctioncall{paste0}(2:8, \hlstring{" cm"}))
 \frame{\sectionpage}
 
 % How to save your plots
+% --------------------------------------------------------------
 \begin{frame}[fragile]
 \begin{itemize}
 \item If the plot is on your screen
@@ -934,22 +962,18 @@ labels=\hlfunctioncall{paste0}(2:8, \hlstring{" cm"}))
 \end{itemize}
 \end{frame}
 
-
-
-
 % --------------------------------------------------------------
-% Template
 \begin{frame}[fragile]
 \frametitle{Further help}
 \begin{itemize}
+\item You've just scratched the surface with ggplot2.
 \item Practice
 \item Read the docs (either locally in \texttt{R} or at \url{http://docs.ggplot2.org/current/})
 \item Work together
 \end{itemize}
+\includegraphics[scale=.15]{images/chang_book.png}
+\includegraphics[scale=.15]{images/hadley.png}
 \end{frame}
-
-
-
 
 % --------------------------------------------------------------
 % end, hope it was useful.
