@@ -164,7 +164,7 @@ geom_point(size = 3)
 % --------------------------------------------------------------
 % Template
 \begin{frame}[fragile]
-\frametitle{Also differentiate points by shape}
+\frametitle{Differentiate points by shape}
 <<first_plot_shape , fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold',  tidy=FALSE>>=
 ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) +
 geom_point(aes(shape = Species), size = 3)
@@ -184,7 +184,7 @@ Then increase the size of the points.
 \frame{\sectionpage}
 
 \begin{frame}[fragile]
-See \texttt{geom\_boxplot} for list of options
+See \texttt{?geom\_boxplot} for list of options
 <<boxplots1 , fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold',  tidy=FALSE>>=
 library(MASS)
 ggplot(birthwt, aes(factor(race), bwt)) + geom_boxplot()
@@ -198,7 +198,7 @@ ggplot(birthwt, aes(factor(race), bwt)) + geom_boxplot()
 
 % --------------------------------------------------------------
 \begin{frame}[fragile]
-See \texttt{geom\_histogram} for list of options
+See \texttt{?geom\_histogram} for list of options
 <<histogr , fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold',  tidy=FALSE>>=
 h <- ggplot(faithful, aes(x=waiting))
 h + geom_histogram(binwidth=30, colour="black")
@@ -269,13 +269,7 @@ geom_bar(stat="identity")
 @
 \end{frame}
 
-\begin{frame}[fragile]
-<<barthree, fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold',  tidy=FALSE>>=
-df  <- melt(iris, id.vars="Species")
-ggplot(df, aes(Species, value, fill = variable)) +
-geom_bar(stat="identity", position = "dodge")
-@
-\end{frame}
+
 
 % --------------------------------------------------------------
 \section*{plyr and reshape are key for using \texttt{R}}
@@ -304,7 +298,7 @@ These two packages are the swiss army knives of R.
 \begin{frame}[fragile]
 <<bartwodata , fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold',  tidy=FALSE>>=
 iris[1:2, ]
-df  <- melt(iris, measured.vars="Species")
+df  <- melt(iris, id.vars="Species")
 df[1:2, ]
 @
 \end{frame}
@@ -429,7 +423,8 @@ facet_grid(. ~ Species)
 \begin{frame}[fragile]
 \frametitle{Colors}
 <<facet_wrap, eval = TRUE, fig.width=4, fig.height=3, out.width='.75\\linewidth'>>=
-ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) + geom_point() +
+ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) +
+geom_point() +
 facet_wrap( ~ Species)
 @
 \end{frame}
