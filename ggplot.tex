@@ -97,7 +97,7 @@ Install some packages
 \frametitle{Download this PDF}
 \begingroup
     \fontsize{15pt}{12pt}\selectfont
-\href{http://github.com/karthikram/ggplot-lecture}{github.com/karthikram/ggplot-lecture}
+\href{http://github.com/karthikram/ggplot-lecture}{github.com/karthikram/ggplot-lecture}\\
 \href{https://speakerdeck.com/karthik/introduction-to-ggplot2}{Copy at SpeakerDeck}
 \endgroup
 \includegraphics[scale=.31]{images/git_repo.png}
@@ -356,9 +356,9 @@ h + \hlfunctioncall{geom_histogram}(binwidth=8, fill=\hlstring{"steelblue"}, col
 \frame{\sectionpage}
 
 \begin{frame}[fragile]
-A simple line plot
 
 
+% climate <- read.csv(text = RCurl::getURL('https://raw.github.com/karthikram/ggplot-lecture/master/climate.csv'))
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -371,6 +371,15 @@ climate <- \hlfunctioncall{read.csv}(\hlstring{"climate.csv"}, header = T)
 
 \end{knitrout}
 
+\begin{flushright}
+\begingroup
+    \fontsize{6pt}{12pt}\selectfont
+    \begin{verbatim}
+        climate <- read.csv(text =
+        RCurl::getURL('https://raw.github.com/karthikram/ggplot-lecture/master/climate.csv'))
+    \end{verbatim}
+\endgroup
+\end{flushright}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -557,7 +566,7 @@ Using the d2 dataset you created earlier, generate this plot below. Take a quick
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlfunctioncall{ggplot}(faithful, \hlfunctioncall{aes}(waiting)) +
-\hlfunctioncall{geom_line}(stat=\hlstring{"density"}, fill=\hlstring{"blue"})
+\hlfunctioncall{geom_line}(stat=\hlstring{"density"})
 \end{alltt}
 \end{kframe}
 \includegraphics[width=.75\linewidth]{figure/densitytwo___} 
@@ -680,7 +689,7 @@ df  <- \hlfunctioncall{melt}(iris, id.vars=\hlstring{"Species"})
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Colors}
+\frametitle{or just wrap your panels}
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
