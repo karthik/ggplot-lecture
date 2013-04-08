@@ -98,6 +98,7 @@ Install some packages
 \begingroup
     \fontsize{15pt}{12pt}\selectfont
 \href{http://github.com/karthikram/ggplot-lecture}{github.com/karthikram/ggplot-lecture}
+\href{https://speakerdeck.com/karthik/introduction-to-ggplot2}{Copy at SpeakerDeck}
 \endgroup
 \includegraphics[scale=.31]{images/git_repo.png}
 \end{frame}
@@ -260,7 +261,7 @@ myplot + \hlfunctioncall{geom_point}()
 % --------------------------------------------------------------
 % Template
 \begin{frame}[fragile]
-\frametitle{Also differentiate points by shape}
+\frametitle{Differentiate points by shape}
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -274,14 +275,25 @@ myplot + \hlfunctioncall{geom_point}()
 
 \end{frame}
 
-\section*{Exercise 1}
-\frame{\sectionpage}
-
 % --------------------------------------------------------------
 \begin{frame}[fragile]
-Make the following plot.\\
-Use the airquality dataset and generate a scatter plot of the year against xxx.\\
-Then increase the size of the points.
+\frametitle{Exercise 2 1}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcomment{# Make a small sample of the diamonds dataset}
+d2 <- diamonds[\hlfunctioncall{sample}(1:\hlfunctioncall{dim}(diamonds)[1], 1000), ]
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+Then generate this plot below.
+
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=.75\linewidth]{figure/ex1} 
+
+\end{knitrout}
 
 \end{frame}
 % --------------------------------------------------------------
@@ -289,7 +301,7 @@ Then increase the size of the points.
 \frame{\sectionpage}
 
 \begin{frame}[fragile]
-See \texttt{geom\_boxplot} for list of options
+See \texttt{?geom\_boxplot} for list of options
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -310,7 +322,7 @@ See \texttt{geom\_boxplot} for list of options
 
 % --------------------------------------------------------------
 \begin{frame}[fragile]
-See \texttt{geom\_histogram} for list of options
+See \texttt{?geom\_histogram} for list of options
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -380,11 +392,16 @@ fill = \hlstring{"blue"}, alpha = .1) +
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Exercise}
+\frametitle{Exercise 2}
 \begin{itemize}
 \item Modify the previous plot and change it such that there are three lines instead of one with a confidence band.
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=.75\linewidth]{figure/ex2} 
 
-\item Make the confidence bounds dashed red lines.
+\end{knitrout}
+
+
 \end{itemize}
 \end{frame}
 
@@ -422,20 +439,7 @@ df  <- \hlfunctioncall{melt}(iris, id.vars=\hlstring{"Species"})
 
 \end{frame}
 
-\begin{frame}[fragile]
-\begin{knitrout}\footnotesize
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-df  <- \hlfunctioncall{melt}(iris, id.vars=\hlstring{"Species"})
-\hlfunctioncall{ggplot}(df, \hlfunctioncall{aes}(Species, value, fill = variable)) +
-\hlfunctioncall{geom_bar}(stat=\hlstring{"identity"}, position = \hlstring{"dodge"})
-\end{alltt}
-\end{kframe}
-\includegraphics[width=.75\linewidth]{figure/barthree} 
 
-\end{knitrout}
-
-\end{frame}
 
 % --------------------------------------------------------------
 \section*{plyr and reshape are key for using \texttt{R}}
@@ -473,7 +477,7 @@ iris[1:2, ]
 ## 2          4.9         3.0          1.4         0.2  setosa
 \end{verbatim}
 \begin{alltt}
-df  <- \hlfunctioncall{melt}(iris, measured.vars=\hlstring{"Species"})
+df  <- \hlfunctioncall{melt}(iris, id.vars=\hlstring{"Species"})
 df[1:2, ]
 \end{alltt}
 \begin{verbatim}
@@ -502,11 +506,15 @@ df[1:2, ]
 \end{frame}
 
 % --------------------------------------------------------------
-\section*{Exercise 2}
-\frame{\sectionpage}
-
 \begin{frame}[fragile]
-Take a dataset and make both a stacked bar chart and a dodged bar chart.
+\frametitle{Exercise 3}
+Using the d2 dataset you created earlier, generate this plot below. Take a quick look at the data first to see if it needs to be binned.
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=.75\linewidth]{figure/ex3} 
+
+\end{knitrout}
+
 \end{frame}
 
 % --------------------------------------------------------------
@@ -557,10 +565,6 @@ Take a dataset and make both a stacked bar chart and a dodged bar chart.
 \end{knitrout}
 
 \end{frame}
-
-% --------------------------------------------------------------
-\section*{Exercise 2}
-\frame{\sectionpage}
 
 
 % --------------------------------------------------------------
@@ -638,9 +642,7 @@ df  <- \hlfunctioncall{melt}(iris, id.vars=\hlstring{"Species"})
 \includegraphics[scale=0.25]{images/color_schemes.png}
 \end{frame}
 
-
-
-
+% -----------------------------------
 
 \section*{Faceting}
 \frame{\sectionpage}
@@ -682,8 +684,9 @@ df  <- \hlfunctioncall{melt}(iris, id.vars=\hlstring{"Species"})
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{ggplot}(iris, \hlfunctioncall{aes}(Sepal.Length, Sepal.Width, color = Species)) + \hlfunctioncall{geom_point}() + 
-    \hlfunctioncall{facet_wrap}(~Species)
+\hlfunctioncall{ggplot}(iris, \hlfunctioncall{aes}(Sepal.Length, Sepal.Width, color = Species)) +
+\hlfunctioncall{geom_point}() +
+\hlfunctioncall{facet_wrap}( ~ Species)
 \end{alltt}
 \end{kframe}
 \includegraphics[width=.75\linewidth]{figure/facet_wrap} 
@@ -693,12 +696,11 @@ df  <- \hlfunctioncall{melt}(iris, id.vars=\hlstring{"Species"})
 \end{frame}
 
 % --------------------------------------------------------------
-\section*{Plotting models}
+\section*{Adding smoothers}
 \frame{\sectionpage}
 
 
 \begin{frame}[fragile]
-\frametitle{Add statistics to your plot1}
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -714,7 +716,6 @@ df  <- \hlfunctioncall{melt}(iris, id.vars=\hlstring{"Species"})
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Add statistics to your plot2}
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -736,6 +737,7 @@ df  <- \hlfunctioncall{melt}(iris, id.vars=\hlstring{"Species"})
 
 \begin{frame}[fragile]
 \frametitle{Adding themes}
+Themes are a great way to define custom plots.
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -771,8 +773,26 @@ axis.title.y = \hlfunctioncall{element_text}(angle = 0))
 \frametitle{Adding themes}
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=.75\linewidth]{figure/facet_wrap_theme_exec} 
+\includegraphics[width=.75\linewidth]{figure/facet_wrap_theme_execc} 
 
+\end{knitrout}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{ggthemes library}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{install.packages}(\hlstring{"ggthemes"})
+\hlfunctioncall{library}(ggthemes)
+\hlcomment{# Then add one of these themes to your plot}
++\hlfunctioncall{theme_stata}()
++\hlfunctioncall{theme_excel}()
++\hlfunctioncall{theme_wsj}()
++\hlfunctioncall{theme_solarized}()
+\end{alltt}
+\end{kframe}
 \end{knitrout}
 
 \end{frame}
@@ -783,7 +803,7 @@ axis.title.y = \hlfunctioncall{element_text}(angle = 0))
 \frame{\sectionpage}
 
 \begin{frame}[fragile]
-\frametitle{Commonly used scales}
+\frametitle{Write functions for day to day plots}
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -891,7 +911,7 @@ labels=\hlfunctioncall{paste0}(2:8, \hlstring{" cm"}))
 \end{kframe}
 \end{knitrout}
 
-\item or any format (pdf, png, eps, jpg)
+\item or any format (pdf, png, eps, svg, jpg)
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -914,7 +934,7 @@ labels=\hlfunctioncall{paste0}(2:8, \hlstring{" cm"}))
 \frametitle{Further help}
 \begin{itemize}
 \item Practice
-\item Read the docs (either locally in \texttt{R} or at \href{docs.ggplot2.org}{http://docs.ggplot2.org})
+\item Read the docs (either locally in \texttt{R} or at \url{http://docs.ggplot2.org/current/})
 \item Work together
 \end{itemize}
 \end{frame}
