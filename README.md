@@ -7,7 +7,7 @@ Here are my [slides](https://github.com/karthikram/ggplot-lecture/blob/master/gg
 
 [![slides](slides.png)](https://github.com/karthikram/ggplot-lecture/blob/master/ggplot.pdf?raw=true)
 
-To generate the pdf presentation
+To generate the pdf presentation locally:
 
 ```r
 knitr('ggplot.Rnw')
