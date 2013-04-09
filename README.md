@@ -14,6 +14,8 @@ knitr('ggplot.Rnw')
 system("pdflatex ggplot.tex")
 ```
 
+* [R code from the script](https://github.com/karthikram/ggplot-lecture/blob/master/ggplot.R)
+
 ## Suggested readings
 * [Elegant graphics for data analysis](http://www.amazon.com/ggplot2-Ele gant-Graphics-Data-Analysis/dp/0387981403/)  
 *  [R Graphics Cookbook](http://www.amazon.com/R-Graphics-Cookbook-Winston-Chang/dp/1449316956)
