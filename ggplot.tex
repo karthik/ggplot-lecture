@@ -927,6 +927,23 @@ labels = \hlfunctioncall{paste0}(2:8, \hlstring{" cm"}))
 \end{frame}
 
 
+% --------------------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{gradients}
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+h + \hlfunctioncall{geom_histogram}( \hlfunctioncall{aes}(fill = ..count..), color=\hlstring{"black"}) +
+\hlfunctioncall{scale_fill_gradient}(low=\hlstring{"green"}, high=\hlstring{"red"})
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.75\linewidth]{figure/scale_2} 
+
+\end{knitrout}
+
+\end{frame}
+
+
 
 % --------------------------------------------------------------
 \section*{Publication quality figures}

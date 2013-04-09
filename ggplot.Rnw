@@ -631,6 +631,16 @@ labels = paste0(2:8, " cm"))
 \end{frame}
 
 
+% --------------------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{gradients}
+<<scale_2, eval = TRUE, fig.width=6, fig.height=4, out.width='.75\\linewidth', tidy = FALSE>>=
+h + geom_histogram( aes(fill = ..count..), color="black") +
+scale_fill_gradient(low="green", high="red")
+@
+\end{frame}
+
+
 
 % --------------------------------------------------------------
 \section*{Publication quality figures}
