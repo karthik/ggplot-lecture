@@ -351,6 +351,22 @@ geom_bar(position = "dodge",stat = "bin") + theme_gray()
 \end{frame}
 
 % --------------------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Exercise 4}
+\begin{itemize}
+\item Using the climate dataset, create a new variable called sign. Make it logical (true/false) based on the sign of Anomaly10y.
+\item Plot a bar plot and use \texttt{sign} variable as the fill.\\
+<<ex4, echo = FALSE, warning = FALSE, fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold'>>=
+clim <- read.csv('climate.csv', header = TRUE)
+clim$sign <- ifelse(clim$Anomaly10y<0, FALSE, TRUE)
+ggplot(clim, aes(Year, Anomaly10y)) + geom_bar(stat = "identity", aes(fill = sign)) + theme_gray()
+@
+
+\end{itemize}
+\end{frame}
+
+
+% --------------------------------------------------------------
 \section*{Density Plots}
 \frame{\sectionpage}
 
