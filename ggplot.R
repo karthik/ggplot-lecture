@@ -537,8 +537,8 @@ Using the d2 dataset you created earlier, generate this plot below. Take a quick
 \begin{frame}[fragile]
 \frametitle{Exercise 4}
 \begin{itemize}
-\item First create a new variable called sign. Make it logical (true/false) based on whether Anomaly10y is below or greater than zero.
-\item Then make a bar plot and use this variable as the fill.\\
+\item Using the climate dataset, create a new variable called sign. Make it logical (true/false) based on the sign of Anomaly10y.
+\item Plot a bar plot and use \texttt{sign} variable as the fill.\\
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 \includegraphics[width=.75\linewidth]{figure/ex4} 

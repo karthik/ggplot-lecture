@@ -359,6 +359,8 @@ geom_bar(position = "dodge",stat = "bin") + theme_gray()
 <<ex4, echo = FALSE, warning = FALSE, fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold'>>=
 clim <- read.csv('climate.csv', header = TRUE)
 clim$sign <- ifelse(clim$Anomaly10y<0, FALSE, TRUE)
+# or as simple as
+# clim$sign <- clim$Anomaly10y < 0
 ggplot(clim, aes(Year, Anomaly10y)) + geom_bar(stat = "identity", aes(fill = sign)) + theme_gray()
 @
 
