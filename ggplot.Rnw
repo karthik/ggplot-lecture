@@ -22,15 +22,6 @@ options(width = 60)
 \title{Data Visualization with R \& ggplot2}
 \author{Karthik Ram}
 \maketitle
-% --------------------------------------------------------------
-\begin{frame}[fragile]
-\frametitle{Some housekeeping}
-Install some packages
-<<installation, tidy=FALSE, echo=TRUE, eval=FALSE>>=
-install.packages("ggplot2", dependencies = TRUE)
-@
-\end{frame}
-
 
 % --------------------------------------------------------------
 \begin{frame}[fragile]
@@ -42,6 +33,17 @@ install.packages("ggplot2", dependencies = TRUE)
 \endgroup
 \includegraphics[scale=.31]{images/git_repo.png}
 \end{frame}
+
+% --------------------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Some housekeeping}
+Install some packages
+<<installation, tidy=FALSE, echo=TRUE, eval=FALSE>>=
+install.packages("ggplot2", dependencies = TRUE)
+@
+\end{frame}
+
+
 
 % --------------------------------------------------------------
 \begin{frame}[fragile]
@@ -86,7 +88,7 @@ install.packages("ggplot2", dependencies = TRUE)
     \end{itemize}
 \item \textbf{aes} -  aesthetics
         \begin{itemize}
-    \item shape, transparency, color, fill.
+    \item shape, transparency (alpha), color, fill, linetype.
     \end{itemize}
 \item \textbf{scales}  Define how your data will be plotted
         \begin{itemize}
@@ -121,7 +123,7 @@ geom_point()
 \begin{frame}[fragile]
 \frametitle{Basic structure}
 <<first_plotb , eval=FALSE, tidy=FALSE>>=
-ggplot(data = iris, aes(x= Sepal.Length, y= Sepal.Width))
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width))
  + geom_point()
 myplot <- ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width))
 myplot + geom_point()
@@ -215,7 +217,8 @@ h + geom_histogram(binwidth = 30, colour = "black")
 \begin{frame}[fragile]
 <<histogra , fig.width=6, fig.height=4, out.width='.75\\linewidth', fig.show='hold',  tidy=FALSE>>=
 h <- ggplot(faithful, aes(x = waiting))
-h + geom_histogram(binwidth = 8, fill = "steelblue", colour = "black")
+h + geom_histogram(binwidth = 8, fill = "steelblue",
+colour = "black")
 @
 \end{frame}
 
@@ -501,7 +504,7 @@ facet_grid(. ~ Species)
 \frametitle{Adding themes}
 Themes are a great way to define custom plots.
 <<theme_list, eval = FALSE, fig.width=4, fig.height=6, out.width='.75\\linewidth'>>=
-theme()
++ theme()
 # see ?theme() for more options
 @
 
