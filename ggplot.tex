@@ -73,6 +73,18 @@
 \title{Data Visualization with R \& ggplot2}
 \author{Karthik Ram}
 \maketitle
+
+% --------------------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Download this PDF}
+\begingroup
+    \fontsize{12pt}{12pt}\selectfont
+\href{http://github.com/karthikram/ggplot-lecture}{github.com/karthikram/ggplot-lecture}\\
+\href{https://speakerdeck.com/karthik/}{https://speakerdeck.com/karthik/}
+\endgroup
+\includegraphics[scale=.31]{images/git_repo.png}
+\end{frame}
+
 % --------------------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Some housekeeping}
@@ -88,16 +100,6 @@ Install some packages
 \end{frame}
 
 
-% --------------------------------------------------------------
-\begin{frame}[fragile]
-\frametitle{Download this PDF}
-\begingroup
-    \fontsize{12pt}{12pt}\selectfont
-\href{http://github.com/karthikram/ggplot-lecture}{github.com/karthikram/ggplot-lecture}\\
-\href{https://speakerdeck.com/karthik/}{https://speakerdeck.com/karthik/}
-\endgroup
-\includegraphics[scale=.31]{images/git_repo.png}
-\end{frame}
 
 % --------------------------------------------------------------
 \begin{frame}[fragile]
@@ -142,7 +144,7 @@ Install some packages
     \end{itemize}
 \item \textbf{aes} -  aesthetics
         \begin{itemize}
-    \item shape, transparency, color, fill.
+    \item shape, transparency (alpha), color, fill, linetype.
     \end{itemize}
 \item \textbf{scales}  Define how your data will be plotted
         \begin{itemize}
@@ -200,7 +202,7 @@ Install some packages
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{ggplot}(data = iris, \hlfunctioncall{aes}(x= Sepal.Length, y= Sepal.Width))
+\hlfunctioncall{ggplot}(data = iris, \hlfunctioncall{aes}(x = Sepal.Length, y = Sepal.Width))
  + \hlfunctioncall{geom_point}()
 myplot <- \hlfunctioncall{ggplot}(data = iris, \hlfunctioncall{aes}(x = Sepal.Length, y = Sepal.Width))
 myplot + \hlfunctioncall{geom_point}()
@@ -341,7 +343,8 @@ h + \hlfunctioncall{geom_histogram}(binwidth = 30, colour = \hlstring{"black"})
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 h <- \hlfunctioncall{ggplot}(faithful, \hlfunctioncall{aes}(x = waiting))
-h + \hlfunctioncall{geom_histogram}(binwidth = 8, fill = \hlstring{"steelblue"}, colour = \hlstring{"black"})
+h + \hlfunctioncall{geom_histogram}(binwidth = 8, fill = \hlstring{"steelblue"},
+colour = \hlstring{"black"})
 \end{alltt}
 \end{kframe}
 \includegraphics[width=.75\linewidth]{figure/histogra_} 
@@ -766,7 +769,7 @@ Themes are a great way to define custom plots.
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{theme}()
++\hlfunctioncall{theme}()
 \hlcomment{# see ?theme() for more options}
 \end{alltt}
 \end{kframe}
