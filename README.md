@@ -1,4 +1,3 @@
-
 # Introduction to ggplot2
 
 Author: [Karthik Ram](mailto:karthik.ram+ggplot2@gmail.com)
@@ -14,7 +13,7 @@ knitr('ggplot.Rnw')
 system("pdflatex ggplot.tex")
 ```
 
-* [R code from the script](https://github.com/karthikram/ggplot-lecture/blob/master/ggplot.R)
+* [R code from the deck](https://github.com/karthikram/ggplot-lecture/blob/master/ggplot.R)
 
 ## Suggested readings
 * [Elegant graphics for data analysis](http://www.amazon.com/ggplot2-Ele gant-Graphics-Data-Analysis/dp/0387981403/)  
