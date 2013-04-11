@@ -235,9 +235,16 @@ axis.title.y = element_text(angle = 0))
 
 
 
-## my_custom_plot <- function(df) {
-##     ggplot(df, ...)
+## my_custom_plot <- function(df, title = "", ...) {
+##     ggplot(df, ...) +
+##     ggtitle(title) +
+##     whatever geoms() +
+##     theme(...)
 ## }
+
+
+
+## plot1 <- my_custom_plot(dataset1, title = "Figure 1")
 
 
 
