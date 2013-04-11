@@ -88,7 +88,7 @@
 % --------------------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Some housekeeping}
-Install some packages
+Install some packages (make sure you also have recent copies of reshape2 and plyr)
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -856,12 +856,28 @@ axis.title.y = \hlfunctioncall{element_text}(angle = 0))
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-my_custom_plot <- \hlfunctioncall{function}(df) \{
-    \hlfunctioncall{ggplot}(df, ...)
+my_custom_plot <- \hlfunctioncall{function}(df, title = \hlstring{""}, ...) \{
+    \hlfunctioncall{ggplot}(df, ...) +
+    \hlfunctioncall{ggtitle}(title) +
+    whatever \hlfunctioncall{geoms}() +
+    \hlfunctioncall{theme}(...)
 \}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
+
+
+Then just call your function to generate a plot.
+It's a lot easier to fix one function that do it over and over for many plots
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+plot1 <- \hlfunctioncall{my_custom_plot}(dataset1, title = \hlstring{"Figure 1"})
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
 
 \end{frame}
 
@@ -908,7 +924,7 @@ breaks = \hlfunctioncall{seq}(1000, 4000, by = 1000))
 
 % --------------------------------------------------------------
 \begin{frame}[fragile]
-\frametitle{Another example}
+\frametitle{Another continuous scale with custom labels}
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}

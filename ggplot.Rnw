@@ -37,7 +37,7 @@ options(width = 60)
 % --------------------------------------------------------------
 \begin{frame}[fragile]
 \frametitle{Some housekeeping}
-Install some packages
+Install some packages (make sure you also have recent copies of reshape2 and plyr)
 <<installation, tidy=FALSE, echo=TRUE, eval=FALSE>>=
 install.packages("ggplot2", dependencies = TRUE)
 @
@@ -580,10 +580,21 @@ library(ggthemes)
 \begin{frame}[fragile]
 \frametitle{Write functions for day to day plots}
 <<custom_plots, eval=FALSE, tidy=FALSE>>=
-my_custom_plot <- function(df) {
-    ggplot(df, ...)
+my_custom_plot <- function(df, title = "", ...) {
+    ggplot(df, ...) +
+    ggtitle(title) +
+    whatever geoms() +
+    theme(...)
 }
 @
+
+Then just call your function to generate a plot.
+It's a lot easier to fix one function that do it over and over for many plots
+<<custom_plots2, eval=FALSE, tidy=FALSE>>=
+plot1 <- my_custom_plot(dataset1, title = "Figure 1")
+@
+
+
 \end{frame}
 
 % --------------------------------------------------------------
@@ -617,7 +628,7 @@ breaks = seq(1000, 4000, by = 1000))
 
 % --------------------------------------------------------------
 \begin{frame}[fragile]
-\frametitle{Another example}
+\frametitle{Another continuous scale with custom labels}
 <<scale_1, eval = FALSE, out.width='.75\\linewidth', tidy = FALSE>>=
 # Assign the plot to an object
 dd <- ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) +
