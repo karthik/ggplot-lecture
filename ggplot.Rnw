@@ -408,12 +408,9 @@ geom_line(stat = "density")
 \begin{frame}[fragile]
 \frametitle{Colors}
 <<color_list2, eval = FALSE, fig.width=4, fig.height=6, out.width='.75\\linewidth'>>=
-# Map all points to one color
-aes(color = "black")
-# Or map the points to a variavble
 aes(color = variable)
-# Then add a scale for the colors.
-# Below we manually define colors but there are other ways (see next slide)
+aes(color = "black")
+# Or add it as a scale
 scale_fill_manual(values = c("color1", "color2"))
 @
 \end{frame}
@@ -453,7 +450,7 @@ scale_color_manual(values = c("red", "green", "blue"))
 
 % --------------------------------------------------------------
 \begin{frame}[fragile]
-\frametitle{Refer to a color chart for beautiful visualizations}
+\frametitle{Refer to a color chart for beautful visualizations}
 \url{http://tools.medialab.sciences-po.fr/iwanthue/}
 \includegraphics[scale=0.25]{images/color_schemes.png}
 \end{frame}

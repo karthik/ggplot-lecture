@@ -143,12 +143,9 @@ geom_line(stat = "density")
 
 
 
-## # Map all points to one color
-## aes(color = "black")
-## # Or map the points to a variavble
 ## aes(color = variable)
-## # Then add a scale for the colors.
-## # Below we manually define colors but there are other ways (see next slide)
+## aes(color = "black")
+## # Or add it as a scale
 ## scale_fill_manual(values = c("color1", "color2"))
 
 
