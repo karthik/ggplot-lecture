@@ -613,9 +613,12 @@ Using the d2 dataset you created earlier, generate this plot below. Take a quick
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{aes}(color = variable)
+\hlcomment{# Map all points to one color}
 \hlfunctioncall{aes}(color = \hlstring{"black"})
-\hlcomment{# Or add it as a scale}
+\hlcomment{# Or map the points to a variavble}
+\hlfunctioncall{aes}(color = variable)
+\hlcomment{# Then add a scale for the colors.  Below we manually}
+\hlcomment{# define colors but there are other ways (see next slide)}
 \hlfunctioncall{scale_fill_manual}(values = \hlfunctioncall{c}(\hlstring{"color1"}, \hlstring{"color2"}))
 \end{alltt}
 \end{kframe}
@@ -677,7 +680,7 @@ df  <- \hlfunctioncall{melt}(iris, id.vars = \hlstring{"Species"})
 
 % --------------------------------------------------------------
 \begin{frame}[fragile]
-\frametitle{Refer to a color chart for beautful visualizations}
+\frametitle{Refer to a color chart for beautiful visualizations}
 \url{http://tools.medialab.sciences-po.fr/iwanthue/}
 \includegraphics[scale=0.25]{images/color_schemes.png}
 \end{frame}
