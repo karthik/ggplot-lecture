@@ -15,7 +15,12 @@ opts_chunk$set(cache=TRUE, message=FALSE)
 # smaller font size for chunks
 opts_chunk$set(size = 'footnotesize')
 options(width = 60)
+knit_hooks$set(inline = function(x) { 
+  if (is.numeric(x)) return(knitr:::format_sci(x, 'latex')) 
+  knitr:::hi_latex(x) 
+}) 
 @
+
 
 % --------------------------------------------------------------
 \begin{document}
@@ -583,7 +588,7 @@ library(ggthemes)
 my_custom_plot <- function(df, title = "", ...) {
     ggplot(df, ...) +
     ggtitle(title) +
-    whatever geoms() +
+    whatever_geoms() +
     theme(...)
 }
 @
@@ -605,11 +610,11 @@ plot1 <- my_custom_plot(dataset1, title = "Figure 1")
 \begin{frame}[fragile]
 \frametitle{Commonly used scales}
 <<scale_list, eval=FALSE, tidy=FALSE>>=
-scale_fill_discrete(), scale_colour_discrete()
-scale_fill_hue(), scale_color_hue()
-scale_fill_manual(),  scale_color_manual()
-scale_fill_brewer(), scale_color_brewer()
-scale_linetype(), scale_shape_manual()
+scale_fill_discrete(); scale_colour_discrete()
+scale_fill_hue(); scale_color_hue()
+scale_fill_manual();  scale_color_manual()
+scale_fill_brewer(); scale_color_brewer()
+scale_linetype(); scale_shape_manual()
 @
 \end{frame}
 
