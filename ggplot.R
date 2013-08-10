@@ -45,6 +45,11 @@ geom_point(aes(shape = Species), size = 3)
 ## # Make a small sample of the diamonds dataset
 ## d2 <- diamonds[sample(1:dim(diamonds)[1], 1000), ]
 
+# Efficient and more readable random sample
+# d2 <- diamonds[sample(nrow(diamonds), 1000), ]
+
+# Robust and more readable random sample
+# d2 <- diamonds[sample(1:nrow(diamonds), 1000, replace = FALSE), ]
 
 
 d2 <- diamonds[sample(1:dim(diamonds)[1], 1000), ]
